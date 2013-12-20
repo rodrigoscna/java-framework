@@ -40,3 +40,5 @@ dependencies {
   compile project(':ActiveRecord')
   compile project(':ActiveSupport')
 }
+
+apply from: '../publish.gradle'

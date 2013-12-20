@@ -38,3 +38,5 @@ android {
 dependencies {
   compile project(':ActiveSupport')
 }
+
+apply from: '../publish.gradle'
