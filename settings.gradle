@@ -1,1 +1,1 @@
-include ':ActionRequest', ':ActiveModel', ':ActiveRecord', ':ActiveSupport', ':Androidies'
+include 'action-request', 'active-model', 'active-record', 'active-support', 'androidies'
