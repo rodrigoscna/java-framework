@@ -1,9 +1,12 @@
 package com.inframeworks.inandroid.activerecord.connectionadapters;
 
+import com.inframeworks.inandroid.activerecord.ActiveRecord;
+import com.inframeworks.inandroid.activerecord.ActiveRelation;
 import com.inframeworks.inandroid.activesupport.Application;
 import com.inframeworks.inandroid.activesupport.annotations.Beta;
 
 import java.lang.reflect.Constructor;
+import java.util.List;
 
 /**
  * @author rodrigoscna
@@ -54,9 +57,38 @@ public abstract class AbstractAdapter {
   public abstract void rollbackTransaction();
 
   /**
+   * Fetch all records based on your ActiveRelation query.
+   *
+   * @param activeRelation The ActiveRelation instance.
+   * @param type           Model class type for query and returning objects.
+   * @return The list of records fetched from the database.
+   */
+  public abstract <T extends ActiveRecord> List<T> all(ActiveRelation activeRelation, Class<T> type);
+
+  /**
+   * Fetch the first database record based on your ActiveRelation query.
+   *
+   * @param activeRelation The ActiveRelation instance.
+   * @param type           Model class type for query and returning objects.
+   * @return The first record fetched from the database.
+   */
+  public abstract <T extends ActiveRecord> T first(ActiveRelation activeRelation, Class<T> type);
+
+  /**
+   * Fetch the last database record based on your ActiveRelation query.
+   *
+   * @param activeRelation The ActiveRelation instance.
+   * @param type           Model class type for query and returning objects.
+   * @return The last record fetched from the database.
+   */
+  public abstract <T extends ActiveRecord> T last(ActiveRelation activeRelation, Class<T> type);
+
+  /**
    * Converts your ActiveRelation query to a SQL String.
    *
-   * @return The SQL equivalent to your ActiveRelation query.
+   * @param activeRelation The ActiveRelation instance.
+   * @param type           Model class type for query.
+   * @return The SQL equivalent to your ActiveRelation.
    */
-  public abstract String toSQL();
+  public abstract <T extends ActiveRecord> String toSQL(ActiveRelation activeRelation, Class<T> type);
 }

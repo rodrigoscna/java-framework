@@ -1,5 +1,6 @@
 package com.inframeworks.inandroid.activerecord;
 
+import com.inframeworks.inandroid.activerecord.connectionadapters.AbstractAdapter;
 import com.inframeworks.inandroid.activesupport.annotations.Beta;
 
 import java.util.List;
@@ -15,6 +16,30 @@ public class ActiveRelation {
   private List<String> mOrderBy;
   private List<String> mConditions;
   private List<Object> mConditionsArguments;
+
+  public int getLimit() {
+    return mLimit;
+  }
+
+  public int getOffset() {
+    return mOffset;
+  }
+
+  public List<String> getJoins() {
+    return mJoins;
+  }
+
+  public List<String> getOrderBy() {
+    return mOrderBy;
+  }
+
+  public List<String> getConditions() {
+    return mConditions;
+  }
+
+  public List<Object> getConditionsArguments() {
+    return mConditionsArguments;
+  }
 
   public ActiveRelation joins(String joins) {
     throw new UnsupportedOperationException("Not implemented yet");
@@ -43,11 +68,19 @@ public class ActiveRelation {
     return this;
   }
 
+  public <T extends ActiveRecord> List<T> all(Class<T> type) {
+    return AbstractAdapter.getAdapter().all(this, type);
+  }
+
   public <T extends ActiveRecord> T first(Class<T> type) {
-    return type.cast(this);
+    return AbstractAdapter.getAdapter().first(this, type);
   }
 
   public <T extends ActiveRecord> T last(Class<T> type) {
-    return type.cast(this);
+    return AbstractAdapter.getAdapter().last(this, type);
+  }
+
+  public <T extends ActiveRecord> String toSQL(Class<T> type) {
+    return AbstractAdapter.getAdapter().toSQL(this, type);
   }
 }
