@@ -35,6 +35,8 @@ android {
   }
 }
 
-dependencies {}
+dependencies {
+  compile project(':active-record')
+}
 
 apply from: '../publish.gradle'

@@ -19,6 +19,10 @@ public class Application extends android.app.Application {
    * Default application name used for fallbacks when needed.
    */
   public static String APPLICATION_NAME = "inAndroid";
+  /**
+   * Constant value for undefined strings.
+   */
+  public static String UNDEFINED = "undefined";
   private static Application INSTANCE_HOLDER;
   private Configuration mConfiguration;
 
