@@ -1,7 +1,4 @@
 allprojects {
   version = VERSION_NAME
   group = GROUP
-
-  def versionCode = VERSION_CODE
-  def versionName = VERSION_NAME
 }

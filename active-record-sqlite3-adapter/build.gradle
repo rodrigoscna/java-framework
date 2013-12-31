@@ -20,8 +20,8 @@ android {
   defaultConfig {
     minSdkVersion 7
     targetSdkVersion 19
-    versionCode versionCode
-    versionName versionName
+    versionCode Integer.parseInt(VERSION_CODE)
+    versionName VERSION_NAME
   }
 
   compileOptions {
