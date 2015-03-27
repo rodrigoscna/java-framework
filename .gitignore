@@ -5,9 +5,9 @@
 #   git config --global core.excludesfile ~/.gitignore_global
 
 # Ignore built and compiled application files.
-bin/
-build/
-gen/
+bin
+build
+gen
 *.apk
 *.ap_
 *.class
@@ -19,13 +19,13 @@ gen/
 local.properties
 
 # Ignore Gradle project files.
-.gradle/
+.gradle
 
 # Ignore Proguard folder.
-proguard/
+proguard
 
 # Ignore Intellij project files.
-.idea/
+.idea
 *.iml
 *.ipr
 *.iws

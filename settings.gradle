@@ -1,2 +1,5 @@
-include ':active-record-sqlite3-adapter'
-include ':action-request', ':active-model', ':active-record', ':active-support', ':androidies'
+include ':activemodel', ':actionrequest'
+include ':activerecord'
+include ':activerecord_sqlite3_adapter'
+include ':activesupport'
+include ':atlasengine'
