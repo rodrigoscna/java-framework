@@ -1,4 +1,5 @@
-include ':activemodel', ':actionrequest'
+include ':actionrequest'
+include ':activemodel'
 include ':activerecord'
 include ':activerecord_sqlite3_adapter'
 include ':activesupport'
