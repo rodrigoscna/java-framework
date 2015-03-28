@@ -12,9 +12,29 @@ public class ActiveRecord extends ActiveModel {
     private static AbstractAdapter mConnectionAdapter;
     private ActiveRelation mActiveRelation;
 
+    /**
+     * Establishes the connection to the database.
+     *
+     * @param connectionAdapter
+     */
+    public static void establishConnection(AbstractAdapter connectionAdapter) {
+        mConnectionAdapter = connectionAdapter;
+        mConnectionAdapter.initializeConnection();
+    }
+
+    /**
+     * Returns the current connection adapter for the ActiveRecord.
+     *
+     * @return The current ConnectionAdapter for the ActiveRecord.
+     */
+    public static AbstractAdapter getConnectionAdapter() {
+        return mConnectionAdapter;
+    }
+
     private ActiveRelation getActiveRelation() {
         if (mActiveRelation == null) {
             mActiveRelation = new ActiveRelation();
+            mActiveRelation.setConnectionAdapter(getConnectionAdapter());
         }
 
         return mActiveRelation;
@@ -47,14 +67,4 @@ public class ActiveRecord extends ActiveModel {
     public <T extends ActiveRecord> T last(Class<T> type) {
         return getActiveRelation().last(type);
     }
-
-    /**
-     * Establishes the connection to the database.
-     * @param connectionAdapter
-     */
-    public static void establishConnection(AbstractAdapter connectionAdapter) {
-        connectionAdapter.initializeConnection();
-    }
-
-
 }

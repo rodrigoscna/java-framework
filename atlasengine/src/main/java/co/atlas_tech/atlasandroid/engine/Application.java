@@ -3,7 +3,6 @@ package co.atlas_tech.atlasandroid.engine;
 import android.os.Bundle;
 
 import java.lang.reflect.Constructor;
-import java.util.Iterator;
 import java.util.Set;
 
 import co.atlas_tech.atlasandroid.activerecord.ActiveRecord;

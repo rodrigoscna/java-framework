@@ -1,21 +1,39 @@
 package co.atlas_tech.atlasandroid.activerecord;
 
+import java.util.List;
+
 import co.atlas_tech.atlasandroid.activerecord.connectionadapters.AbstractAdapter;
 import co.atlas_tech.atlasandroid.activesupport.annotations.Beta;
-
-import java.util.List;
 
 /**
  * @author Rodrigo Scomasson do Nascimento <rodrigo.sc.na@gmail.com>
  */
 @Beta
 public class ActiveRelation {
+    private AbstractAdapter mConnectionAdapter;
     private int mLimit;
     private int mOffset;
     private List<String> mJoins;
     private List<String> mOrderBy;
     private List<String> mConditions;
     private List<Object> mConditionsArguments;
+
+    /**
+     * Returns the current connection adapter for this ActiveRelation.
+     *
+     * @return The current ConnectionAdapter of this object.
+     */
+    public AbstractAdapter getConnectionAdapter() {
+        if (mConnectionAdapter == null) {
+            return mConnectionAdapter;
+        } else {
+            throw new RuntimeException("Database adapter not configured for ActiveRelation.");
+        }
+    }
+
+    public void setConnectionAdapter(AbstractAdapter connectionAdapter) {
+        mConnectionAdapter = connectionAdapter;
+    }
 
     public int getLimit() {
         return mLimit;
@@ -69,18 +87,18 @@ public class ActiveRelation {
     }
 
     public <T extends ActiveRecord> List<T> all(Class<T> type) {
-        return AbstractAdapter.getAdapter().all(this, type);
+        return getConnectionAdapter().all(this, type);
     }
 
     public <T extends ActiveRecord> T first(Class<T> type) {
-        return AbstractAdapter.getAdapter().first(this, type);
+        return getConnectionAdapter().first(this, type);
     }
 
     public <T extends ActiveRecord> T last(Class<T> type) {
-        return AbstractAdapter.getAdapter().last(this, type);
+        return getConnectionAdapter().last(this, type);
     }
 
     public <T extends ActiveRecord> String toSQL(Class<T> type) {
-        return AbstractAdapter.getAdapter().toSQL(this, type);
+        return getConnectionAdapter().toSQL(this, type);
     }
 }
