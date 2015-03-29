@@ -69,6 +69,16 @@ public abstract class AbstractAdapter {
     public abstract <T extends ActiveRecord> T first(ActiveRelation activeRelation, Class<T> type);
 
     /**
+     * Fetch the first N database records based on your ActiveRelation query.
+     *
+     * @param activeRelation The ActiveRelation instance.
+     * @param type           Model class type for query and returning objects.
+     * @param limit          The number of records to retrieve.
+     * @return The first N records fetched from the database.
+     */
+    public abstract <T extends ActiveRecord> List<T> first(ActiveRelation activeRelation, Class<T> type, Integer limit);
+
+    /**
      * Fetch the last database record based on your ActiveRelation query.
      *
      * @param activeRelation The ActiveRelation instance.
@@ -76,6 +86,16 @@ public abstract class AbstractAdapter {
      * @return The last record fetched from the database.
      */
     public abstract <T extends ActiveRecord> T last(ActiveRelation activeRelation, Class<T> type);
+
+    /**
+     * Fetch the last N database records based on your ActiveRelation query.
+     *
+     * @param activeRelation The ActiveRelation instance.
+     * @param type           Model class type for query and returning objects.
+     * @param limit          The number of records to retrieve.
+     * @return The last N records fetched from the database.
+     */
+    public abstract <T extends ActiveRecord> List<T> last(ActiveRelation activeRelation, Class<T> type, Integer limit);
 
     /**
      * Converts your ActiveRelation query to a SQL String.

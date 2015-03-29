@@ -18,9 +18,6 @@ public class SQLite3Adapter extends AbstractAdapter {
     private Integer mDatabaseFlags;
 
     private SQLiteDatabase getConnection() {
-        String mDatabaseName = mConnectionSettings.getString("database_name");
-        Integer mDatabaseFlags = mConnectionSettings.getInt("database_flags"); //SQLiteDatabase.CREATE_IF_NECESSARY
-
         if (sSQLiteDatabase == null) {
             initializeConnection();
         }
@@ -34,7 +31,18 @@ public class SQLite3Adapter extends AbstractAdapter {
     @Override
     public void initializeConnection() {
         if (sSQLiteDatabase == null) {
-            sSQLiteDatabase = SQLiteDatabase.openDatabase(mDatabaseName, null, mDatabaseFlags);
+            String mDatabaseName = mConnectionSettings.getString("database_name");
+            Integer mDatabaseFlags = mConnectionSettings.getInt("database_flags"); //
+
+            if (mDatabaseName == null) {
+                throw new RuntimeException("Database name not defined.");
+            }
+
+            if (mDatabaseFlags == null) {
+                mDatabaseFlags = SQLiteDatabase.CREATE_IF_NECESSARY;
+            }
+
+//            sSQLiteDatabase = SQLiteDatabase.openDatabase(mDatabaseName, null, mDatabaseFlags);
         }
     }
 
@@ -98,6 +106,19 @@ public class SQLite3Adapter extends AbstractAdapter {
     }
 
     /**
+     * Fetch the first N database records based on your ActiveRelation query.
+     *
+     * @param activeRelation The ActiveRelation instance.
+     * @param type           Model class type for query and returning objects.
+     * @param limit          The number of records to retrieve.
+     * @return The first N records fetched from the database.
+     */
+    @Override
+    public <T extends ActiveRecord> List<T> first(ActiveRelation activeRelation, Class<T> type, Integer limit) {
+        return DataManipulationLanguage.fetchFirst(getConnection(), activeRelation, type, limit);
+    }
+
+    /**
      * Fetch the last database record based on your ActiveRelation query.
      *
      * @param activeRelation The ActiveRelation instance.
@@ -107,6 +128,19 @@ public class SQLite3Adapter extends AbstractAdapter {
     @Override
     public <T extends ActiveRecord> T last(ActiveRelation activeRelation, Class<T> type) {
         return DataManipulationLanguage.fetchLast(getConnection(), activeRelation, type);
+    }
+
+    /**
+     * Fetch the last N database records based on your ActiveRelation query.
+     *
+     * @param activeRelation The ActiveRelation instance.
+     * @param type           Model class type for query and returning objects.
+     * @param limit          The number of records to retrieve.
+     * @return The last N records fetched from the database.
+     */
+    @Override
+    public <T extends ActiveRecord> List<T> last(ActiveRelation activeRelation, Class<T> type, Integer limit) {
+        return DataManipulationLanguage.fetchLast(getConnection(), activeRelation, type, limit);
     }
 
     /**

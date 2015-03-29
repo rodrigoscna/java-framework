@@ -24,5 +24,6 @@ dependencies {
     compile project(':actionrequest')
     compile project(':activemodel')
     compile project(':activerecord')
+    compile project(':activerecord_sqlite3_adapter')
     compile project(':activesupport')
 }
