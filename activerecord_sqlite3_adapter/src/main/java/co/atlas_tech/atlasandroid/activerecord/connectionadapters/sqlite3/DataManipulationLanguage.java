@@ -6,11 +6,13 @@ import java.util.List;
 
 import co.atlas_tech.atlasandroid.activerecord.ActiveRecord;
 import co.atlas_tech.atlasandroid.activerecord.ActiveRelation;
+import co.atlas_tech.atlasandroid.activesupport.annotations.Beta;
 import co.atlas_tech.atlasandroid.activesupport.core_ext.StringUtils;
 
 /**
  * @author Rodrigo Scomasson do Nascimento <rodrigo.sc.na@gmail.com>
  */
+@Beta
 public class DataManipulationLanguage {
     public static <T extends ActiveRecord> List<T> fetchAll(SQLiteDatabase connection, ActiveRelation activeRelation, Class<T> type) {
         return null;
@@ -34,23 +36,25 @@ public class DataManipulationLanguage {
 
     public static <T extends ActiveRecord> String toSQL(SQLiteDatabase connection, ActiveRelation activeRelation, Class<T> type) {
         String modelName = type.getSimpleName();
-        String tableName = modelName;
+        String tableName = StringUtils.tableize(modelName);
 
         StringBuilder sqlQuery = new StringBuilder();
         sqlQuery.append("SELECT ");
 
         if (activeRelation.hasSelect()) {
-            sqlQuery.append(StringUtils.join(", ", activeRelation.getSelect())).append(" ");
+            sqlQuery.append(StringUtils.join(activeRelation.getSelect(), ", ")).append(" ");
         } else {
             sqlQuery.append(tableName).append(".* ");
         }
 
+        sqlQuery.append("FROM ").append(tableName).append(" ");
+
         if (activeRelation.hasLimit()) {
-            sqlQuery.append(" LIMIT ").append(activeRelation.getLimit()).append(" ");
+            sqlQuery.append("LIMIT ").append(activeRelation.getLimit()).append(" ");
         }
 
         if (activeRelation.hasOffset()) {
-            sqlQuery.append(" OFFSET ").append(activeRelation.getOffset()).append(" ");
+            sqlQuery.append("OFFSET ").append(activeRelation.getOffset()).append(" ");
         }
 
         return sqlQuery.toString().trim();

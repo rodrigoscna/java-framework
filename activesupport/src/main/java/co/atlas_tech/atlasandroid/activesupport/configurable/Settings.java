@@ -37,11 +37,11 @@ public class Settings {
      * If you don't have any name set in your Manifest file, the framework will
      * use the default internal name.
      * <p/>
-     * Only one getInstance of the SharedPreferences object is returned to any
+     * Only one instance of the SharedPreferences object is returned to any
      * callers for the same name, meaning they will see each other's edits as
      * soon as they are made.
      *
-     * @return The single SharedPreferences getInstance that can be used to
+     * @return The single SharedPreferences instance that can be used to
      * retrieve and modify the preference values.
      */
     public SharedPreferences getSharedPreferences() {
@@ -60,7 +60,7 @@ public class Settings {
      * Note that you must call commit() to have any changes you perform in the
      * Editor actually show up in the SharedPreferences.
      *
-     * @return A new getInstance of the SharedPreferences.Editor interface,
+     * @return A new instance of the SharedPreferences.Editor interface,
      * allowing you to modify the values in this SharedPreferences object.
      */
     public SharedPreferences.Editor getSharedPreferencesEditor() {
@@ -144,9 +144,9 @@ public class Settings {
     /**
      * Retrieve a set of String values from the preferences.
      * <p/>
-     * <p>Note that you <em>must not</em> modify the set getInstance returned
+     * <p>Note that you <em>must not</em> modify the set instance returned
      * by this call.  The consistency of the stored data is not guaranteed
-     * if you do, nor is your ability to modify the getInstance at all.
+     * if you do, nor is your ability to modify the instance at all.
      *
      * @param key          The name of the preference to retrieve.
      * @param defaultValue Value to return if this preference does not exist.
@@ -164,7 +164,7 @@ public class Settings {
      *
      * @param key      The name of the preference to modify.
      * @param newValue The new value for the preference.
-     * @return The current getInstance of the SharedPreferences.Editor interface.
+     * @return The current instance of the SharedPreferences.Editor interface.
      */
     public SharedPreferences.Editor setBooleanSharedPreference(String key, Boolean newValue) {
         return getSharedPreferencesEditor().putBoolean(key, newValue);
@@ -175,7 +175,7 @@ public class Settings {
      *
      * @param key      The name of the preference to modify.
      * @param newValue The new value for the preference.
-     * @return The current getInstance of the SharedPreferences.Editor interface.
+     * @return The current instance of the SharedPreferences.Editor interface.
      */
     public SharedPreferences.Editor setFloatSharedPreference(String key, Float newValue) {
         return getSharedPreferencesEditor().putFloat(key, newValue);
@@ -186,7 +186,7 @@ public class Settings {
      *
      * @param key      The name of the preference to modify.
      * @param newValue The new value for the preference.
-     * @return The current getInstance of the SharedPreferences.Editor interface.
+     * @return The current instance of the SharedPreferences.Editor interface.
      */
     public SharedPreferences.Editor setIntegerSharedPreference(String key, Integer newValue) {
         return getSharedPreferencesEditor().putInt(key, newValue);
@@ -197,7 +197,7 @@ public class Settings {
      *
      * @param key      The name of the preference to modify.
      * @param newValue The new value for the preference.
-     * @return The current getInstance of the SharedPreferences.Editor interface.
+     * @return The current instance of the SharedPreferences.Editor interface.
      */
     public SharedPreferences.Editor setLongSharedPreference(String key, Long newValue) {
         return getSharedPreferencesEditor().putLong(key, newValue);
@@ -208,7 +208,7 @@ public class Settings {
      *
      * @param key      The name of the preference to modify.
      * @param newValue The new value for the preference.
-     * @return The current getInstance of the SharedPreferences.Editor interface.
+     * @return The current instance of the SharedPreferences.Editor interface.
      */
     public SharedPreferences.Editor setStringSharedPreference(String key, String newValue) {
         return getSharedPreferencesEditor().putString(key, newValue);
@@ -219,7 +219,7 @@ public class Settings {
      *
      * @param key      The name of the preference to modify.
      * @param newValue The new value for the preference.
-     * @return The current getInstance of the SharedPreferences.Editor interface.
+     * @return The current instance of the SharedPreferences.Editor interface.
      */
     public SharedPreferences.Editor setStringSetSharedPreference(String key, Set<String> newValue) {
         return getSharedPreferencesEditor().putStringSet(key, newValue);

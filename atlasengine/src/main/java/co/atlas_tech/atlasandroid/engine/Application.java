@@ -10,6 +10,7 @@ import co.atlas_tech.atlasandroid.activerecord.connectionadapters.AbstractAdapte
 import co.atlas_tech.atlasandroid.activesupport.annotations.Beta;
 import co.atlas_tech.atlasandroid.activesupport.application.MetaData;
 import co.atlas_tech.atlasandroid.activesupport.configurable.Settings;
+import co.atlas_tech.atlasandroid.activesupport.inflector.DefaultInflections;
 import co.atlas_tech.atlasandroid.activesupport.logging.Logger;
 
 /**
@@ -73,6 +74,7 @@ public class Application extends android.app.Application {
         INSTANCE_HOLDER.initializeMetaData();
 
         INSTANCE_HOLDER.initializeActiveRecordConnection();
+        INSTANCE_HOLDER.initializeActiveSupportInflections();
     }
 
     private void initializeActiveRecordConnection() {
@@ -90,6 +92,10 @@ public class Application extends android.app.Application {
         } catch (Exception e) {
             throw new UnsupportedOperationException("Invalid database adapter.");
         }
+    }
+
+    private void initializeActiveSupportInflections() {
+        DefaultInflections.initializeDefaultInflections();
     }
 
     private Bundle getActiveRecordConnectionSettings() {

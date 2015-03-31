@@ -35,7 +35,7 @@ public class MetaData {
     }
 
     /**
-     * Terminates the current configuration getInstance.
+     * Terminates the current configuration instance.
      *
      * @return A null value if the configuration was terminated, or the
      * configuration itself if not.

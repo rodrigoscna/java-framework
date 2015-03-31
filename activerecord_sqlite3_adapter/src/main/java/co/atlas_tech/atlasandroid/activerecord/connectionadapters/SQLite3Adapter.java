@@ -8,10 +8,12 @@ import co.atlas_tech.atlasandroid.activerecord.ActiveRecord;
 import co.atlas_tech.atlasandroid.activerecord.ActiveRelation;
 import co.atlas_tech.atlasandroid.activerecord.connectionadapters.sqlite3.DataManipulationLanguage;
 import co.atlas_tech.atlasandroid.activerecord.connectionadapters.sqlite3.DataTransactionLanguage;
+import co.atlas_tech.atlasandroid.activesupport.annotations.Beta;
 
 /**
  * @author Rodrigo Scomasson do Nascimento <rodrigo.sc.na@gmail.com>
  */
+@Beta
 public class SQLite3Adapter extends AbstractAdapter {
     private static SQLiteDatabase sSQLiteDatabase;
     private String mDatabaseName;
