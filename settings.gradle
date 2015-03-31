@@ -1,6 +1,7 @@
 include ':actionrequest'
 include ':activemodel'
 include ':activerecord'
+include ':activerecord_rest_adapter'
 include ':activerecord_sqlite3_adapter'
 include ':activesupport'
 include ':atlasengine'
