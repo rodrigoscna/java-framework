@@ -182,9 +182,41 @@ public class Inflections {
     }
 
     public void clear() {
-        mHumans.clear();
-        mPlurals.clear();
-        mSingulars.clear();
-        mUncountables.clear();
+        mAcronyms = new HashMap<String, String>();
+        mAcronymRegex = "(?=a)b";
+        mHumans = new ArrayList<String[]>();
+        mPlurals = new ArrayList<String[]>();
+        mSingulars = new ArrayList<String[]>();
+        mUncountables = new ArrayList<String>();
+    }
+
+    public void clear(String scope) {
+        if (scope == null) {
+            clear();
+        } else {
+            switch (scope) {
+                case "all":
+                    clear();
+                    break;
+                case "acronyms":
+                    mAcronyms = new HashMap<String, String>();
+                    mAcronymRegex = "(?=a)b";
+                    break;
+                case "humans":
+                    mHumans = new ArrayList<String[]>();
+                    break;
+                case "plurals":
+                    mPlurals = new ArrayList<String[]>();
+                    break;
+                case "singulars":
+                    mSingulars = new ArrayList<String[]>();
+                    break;
+                case "uncountables":
+                    mUncountables = new ArrayList<String>();
+                    break;
+                default:
+                    throw new IllegalArgumentException();
+            }
+        }
     }
 }

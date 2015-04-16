@@ -87,37 +87,37 @@ public class Inflector {
     public static String camelize(String term, boolean uppercaseFirstLetter) {
         Map<String, String> acronyms = inflections().getAcronyms();
 
-        String camelized = term;
+        String camelizedString = term;
 
         Pattern pattern;
         Matcher matcher;
         if (uppercaseFirstLetter) {
             pattern = Pattern.compile("^[a-z\\d]*");
-            matcher = pattern.matcher(camelized);
+            matcher = pattern.matcher(camelizedString);
             if (matcher.find()) {
                 String match = matcher.group();
-                camelized = camelized.replaceFirst(pattern.pattern(), acronyms.containsKey(match) ? acronyms.get(match) : capitalize(match));
+                camelizedString = camelizedString.replaceFirst(pattern.pattern(), acronyms.containsKey(match) ? acronyms.get(match) : capitalize(match));
             }
         } else {
             pattern = Pattern.compile("^(?:" + inflections().getAcronymRegex() + "(?=\\b|[A-Z_])|\\w)");
-            matcher = pattern.matcher(camelized);
+            matcher = pattern.matcher(camelizedString);
             if (matcher.find()) {
                 String match = matcher.group();
-                camelized = camelized.replaceFirst(pattern.pattern(), match.toLowerCase());
+                camelizedString = camelizedString.replaceFirst(pattern.pattern(), match.toLowerCase());
             }
         }
 
         pattern = Pattern.compile("(?:_|(\\/))([a-z\\d]*)", Pattern.CASE_INSENSITIVE);
-        matcher = pattern.matcher(camelized);
+        matcher = pattern.matcher(camelizedString);
         while (matcher.find()) {
             String match1 = matcher.group(1) != null ? matcher.group(1) : "";
             String match2 = matcher.group(2) != null ? matcher.group(2) : "";
-            camelized = camelized.replaceFirst(matcher.group(), match1 + (acronyms.containsKey(match2) ? acronyms.get(match2) : capitalize(match2)));
+            camelizedString = camelizedString.replaceFirst(matcher.group(), match1 + (acronyms.containsKey(match2) ? acronyms.get(match2) : capitalize(match2)));
         }
 
-        camelized = camelized.replaceAll("\\/", "\\.");
+        camelizedString = camelizedString.replaceAll("\\/", "\\.");
 
-        return camelized;
+        return camelizedString;
     }
 
     public static String capitalize(String word) {
@@ -339,8 +339,46 @@ public class Inflector {
      * @param number The number to be converted.
      * @return The ordinal suffix for the number.
      */
-    public static String ordinal(Number number) {
+    public static String ordinal(String number) {
         throw new UnsupportedOperationException("Not implemented yet.");
+    }
+
+    /**
+     * Returns the suffix that should be added to a number to denote the
+     * position in an ordered sequence such as 1st, 2nd, 3rd, 4th.
+     * <pre>{@code
+     * Inflector.ordinal(1) == "st"
+     * Inflector.ordinal(2) == "nd"
+     * Inflector.ordinal(1002) == "nd"
+     * Inflector.ordinal(1003) == "rd"
+     * Inflector.ordinal(-11) == "th"
+     * Inflector.ordinal(-1021) == "st"
+     * }</pre>
+     *
+     * @param number The number to be converted.
+     * @return The ordinal suffix for the number.
+     */
+    public static String ordinal(Number number) {
+        return ordinal(String.valueOf(number));
+    }
+
+    /**
+     * Turns a number into an ordinal string used to denote the position in an
+     * ordered sequence such as 1st, 2nd, 3rd, 4th.
+     * <pre>{@code
+     * Inflector.ordinalize(1) == "1st"
+     * Inflector.ordinalize(2) == "2nd"
+     * Inflector.ordinalize(1002) == "1002nd"
+     * Inflector.ordinalize(1003) == "1003rd"
+     * Inflector.ordinalize(-11) == "-11th"
+     * Inflector.ordinalize(-1021) == "-1021st"
+     * }</pre>
+     *
+     * @param number The number to be converted.
+     * @return The number into an ordinal string.
+     */
+    public static String ordinalize(String number) {
+        return number + ordinal(number);
     }
 
     /**
@@ -359,7 +397,22 @@ public class Inflector {
      * @return The number into an ordinal string.
      */
     public static String ordinalize(Number number) {
-        return String.valueOf(number) + ordinal(number);
+        return ordinalize(String.valueOf(number));
+    }
+
+    /**
+     * Replaces special characters in a string so that it may be used as part of
+     * a "pretty" URL.
+     * <pre>{@code
+     * Inflector.parameterize("Donald E. Knuth") == "donald-e-knuth"
+     * Inflector.parameterize("^trés|Jolie-- ") == "tres-jolie"
+     * }</pre>
+     *
+     * @param string The string to be parameterized.
+     * @return A new string without special characters.
+     */
+    public static String parameterize(String string, String separator) {
+        throw new UnsupportedOperationException("Not implemented yet.");
     }
 
     /**
@@ -578,7 +631,27 @@ public class Inflector {
      * @return A new string in the underscored format.
      */
     public static String underscore(String camelizedWord) {
-        throw new UnsupportedOperationException("Not implemented yet.");
+        String underscoredString = camelizedWord;
+        underscoredString = underscoredString.replaceAll("\\.", "\\/");
+
+        Pattern pattern;
+        Matcher matcher;
+
+        pattern = Pattern.compile("(?:(?<=([A-Za-z\\d]))|\\b)(" + inflections().getAcronymRegex() + ")(?=\\b|[^a-z])");
+        matcher = pattern.matcher(underscoredString);
+        while (matcher.find()) {
+            String match1 = matcher.group(1) != null ? matcher.group(1) : "";
+            String match2 = matcher.group(2) != null ? matcher.group(2) : "";
+
+            underscoredString = underscoredString.replaceFirst(matcher.group(), (match1 != null) ? match1 + "_" : "" + match2.toLowerCase());
+        }
+
+        underscoredString = underscoredString.replaceAll("([A-Z\\d]+)([A-Z][a-z])", "$1_$2");
+        underscoredString = underscoredString.replaceAll("([a-z\\d])([A-Z])", "$1_$2");
+        underscoredString = underscoredString.replaceAll("-", "_");
+        underscoredString = underscoredString.toLowerCase();
+
+        return underscoredString;
     }
 
     /**
