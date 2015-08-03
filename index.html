@@ -1,107 +1,95 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <title>Atlas Android by arauk</title>
 
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-
-    <title>Atlas Android by arauk</title>
   </head>
-
   <body>
-    <header>
-      <div class="inner">
+    <div class="wrapper">
+      <header>
         <h1>Atlas Android</h1>
-        <h2>Android Framework by Atlas Technology</h2>
-        <a href="https://github.com/arauk/ark" class="button"><small>View project on</small> GitHub</a>
-      </div>
-    </header>
+        <p>Android Framework by Atlas Technology</p>
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <h2>
-<a id="welcome-to-atlasandroid" class="anchor" href="#welcome-to-atlasandroid" aria-hidden="true"><span class="octicon octicon-link"></span></a>Welcome to AtlasAndroid</h2>
+        <p class="view"><a href="https://github.com/arauk/ark">View the Project on GitHub <small>arauk/ark</small></a></p>
 
-<p>AtlasAndroid is a modern framework that includes everything needed to create
+
+        <ul>
+          <li><a href="https://github.com/arauk/ark/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/arauk/ark/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/arauk/ark">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h2>
+<a id="welcome-to-ark" class="anchor" href="#welcome-to-ark" aria-hidden="true"><span class="octicon octicon-link"></span></a>Welcome to Ark</h2>
+
+<p>Ark is a modern framework that includes everything needed to create
 database-backed Android applications according to the
 <a href="http://en.wikipedia.org/wiki/Model-view-controller">Model-View-Controller (MVC)</a>
 pattern. The initial version of the framework is entirely focused on the model
 layer.</p>
 
-<p>Understanding the MVC pattern is key to understanding AtlasAndroid. MVC divides
+<p>Understanding the MVC pattern is key to understanding Ark. MVC divides
 your application into three layers, each with a specific responsibility.</p>
 
 <p>The <em>Model layer</em> represents your domain model (such as Account, Product,
 Person, Post, etc.) and encapsulates the business logic that is specific to your
-application. In AtlasAndroid, database-backed model classes are derived from
+application. In Ark, database-backed model classes are derived from
 <code>ActiveRecord</code> class. Active Record allows you to present the data from database
 rows as objects and embellish these data objects with business logic methods.
-Although most AtlasAndroid models are backed by a database, models can also be
-ordinary Java classes, or Java classes that implement a set of interfaces as
-provided by the Active Model module. You can read more about ActiveRecord in its
+Although most Ark models are backed by a database, models can also be ordinary
+Java classes, or Java classes that implement a set of interfaces as provided by
+the Active Model module. You can read more about ActiveRecord in its
 <a href="activerecord/README.md">README</a>.</p>
 
 <p>ActiveRecord, and ActionRequest can each be used independently outside
-AtlasAndroid. In addition to them, AtlasAndroid also comes with ActiveSupport
+Ark. In addition to them, Ark also comes with ActiveSupport
 (<a href="activesupport/README.md">README</a>), a collection of utility classes and
-standard library extensions that are useful for AtlasAndroid, and may also be
-used independently outside the framework.</p>
+standard library extensions that are useful for Ark, and may also be used
+independently outside the framework.</p>
 
 <h2>
 <a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributing</h2>
 
 <p>We encourage you to contribute to all of our frameworks! Please check out the
-<a href="http://atlas-tech.co/contributing">Contributing to Atlas page</a>
+<a href="http://ark.arauk.com.br/contributing">Contributing to Ark page</a>
 for guidelines about how to proceed.
-<a href="http://atlas-tech.co/contributing/contributors">Join us!</a></p>
+<a href="http://ark.arauk.com.br/contributing/contributors">Join us!</a></p>
 
 <h2>
 <a id="code-status" class="anchor" href="#code-status" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code Status</h2>
 
 <ul>
-<li><a href="https://travis-ci.org/atlas-tech/atlas-android"><img src="https://api.travis-ci.org/atlas-tech/atlas-android.png" alt="Build Status"></a></li>
+<li><a href="https://travis-ci.org/arauk/ark"><img src="https://api.travis-ci.org/arauk/ark.png" alt="Build Status"></a></li>
 </ul>
 
 <h2>
 <a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
 
-<p>AtlasAndroid is released under the
+<p>Ark is released under the
 <a href="http://www.opensource.org/licenses/MIT">MIT License</a>.</p>
-        </section>
-
-        <aside id="sidebar">
-          <a href="https://github.com/arauk/ark/zipball/master" class="button">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/arauk/ark/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
-          </a>
-
-          <p class="repo-owner"><a href="https://github.com/arauk/ark"></a> is maintained by <a href="https://github.com/arauk">arauk</a>.</p>
-
-          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
-        </aside>
-      </div>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/arauk">arauk</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
     </div>
-
-            <script type="text/javascript">
+    <script src="javascripts/scale.fix.js"></script>
+              <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
             document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
           </script>
           <script type="text/javascript">
             try {
-              var pageTracker = _gat._getTracker("UA-59893575-3");
+              var pageTracker = _gat._getTracker("UA-61838577-3");
             pageTracker._trackPageview();
             } catch(err) {}
           </script>
