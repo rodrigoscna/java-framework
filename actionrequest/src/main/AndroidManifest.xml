@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="br.com.arauk.ark.actionrequest">
+    package="tech.arauk.ark.actionrequest">
 
     <application
         android:allowBackup="true"
