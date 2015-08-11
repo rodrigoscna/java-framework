@@ -20,10 +20,7 @@ android {
 
 dependencies {
     compile fileTree(dir: "libs", include: ["*.jar"])
-    compile "com.android.support:appcompat-v7:22.2.1"
-    compile project(":actionrequest")
-    compile project(":activemodel")
+    compile "com.android.support:appcompat-v7:22.+"
     compile project(":activerecord")
-    compile project(":activerecord_sqlite3_adapter")
     compile project(":activesupport")
 }
