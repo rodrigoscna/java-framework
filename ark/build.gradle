@@ -1,5 +1,9 @@
 apply plugin: "java"
 
+allprojects {
+    sourceCompatibility = JavaVersion.VERSION_1_7
+}
+
 dependencies {
     compile project(":actionrequest")
     compile project(":activemodel")
