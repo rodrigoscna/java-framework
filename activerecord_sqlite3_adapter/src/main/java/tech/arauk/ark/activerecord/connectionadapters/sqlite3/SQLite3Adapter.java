@@ -1,4 +1,4 @@
-package tech.arauk.ark.activerecord.connectionadapters;
+package tech.arauk.ark.activerecord.connectionadapters.sqlite3;
 
 import android.database.sqlite.SQLiteDatabase;
 
@@ -6,8 +6,7 @@ import java.util.List;
 
 import tech.arauk.ark.activerecord.ActiveRecord;
 import tech.arauk.ark.activerecord.ActiveRelation;
-import tech.arauk.ark.activerecord.connectionadapters.sqlite3.DataManipulationLanguage;
-import tech.arauk.ark.activerecord.connectionadapters.sqlite3.DataTransactionLanguage;
+import tech.arauk.ark.activerecord.connectionadapters.AbstractAdapter;
 import tech.arauk.ark.activesupport.annotations.Beta;
 
 /**
