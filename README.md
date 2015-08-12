@@ -1,7 +1,7 @@
 ## Welcome to Ark
 
 Ark is a modern framework that includes everything needed to create
-database-backed Android applications according to the
+database-backed Java applications according to the
 [Model-View-Controller (MVC)](http://en.wikipedia.org/wiki/Model-view-controller)
 pattern. The initial version of the framework is entirely focused on the model
 layer.
