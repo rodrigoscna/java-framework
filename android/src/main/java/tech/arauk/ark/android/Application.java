@@ -3,15 +3,17 @@ package tech.arauk.ark.android;
 import android.os.Bundle;
 
 import java.lang.reflect.Constructor;
+import java.util.HashMap;
 import java.util.Set;
 
 import tech.arauk.ark.activerecord.ActiveRecord;
 import tech.arauk.ark.activerecord.connectionadapters.AbstractAdapter;
 import tech.arauk.ark.activesupport.annotations.Beta;
-import tech.arauk.ark.activesupport.application.MetaData;
-import tech.arauk.ark.activesupport.configurable.Settings;
 import tech.arauk.ark.activesupport.inflector.DefaultInflections;
 import tech.arauk.ark.activesupport.logging.Logger;
+import tech.arauk.ark.android.application.MetaData;
+import tech.arauk.ark.android.configurable.Settings;
+import tech.arauk.ark.android.logging.AndroidLog;
 
 /**
  * inAndroid framework's base class. You must provide this class for your
@@ -124,14 +126,14 @@ public class Application extends android.app.Application {
         return mSettings;
     }
 
-    private Bundle getActiveRecordConnectionSettings() {
-        Bundle activeRecordConnectionSettings = new Bundle();
+    private HashMap<String, String> getActiveRecordConnectionSettings() {
+        HashMap<String, String> activeRecordConnectionSettings = new HashMap<String, String>();
         Bundle metaData = getMetaData().getMetaData();
 
         Set<String> keySet = metaData.keySet();
         for (String key : keySet) {
             if (key.startsWith("database_")) {
-                activeRecordConnectionSettings.putString(key, metaData.getString(key));
+                activeRecordConnectionSettings.put(key, metaData.getString(key));
             }
         }
 
@@ -168,7 +170,7 @@ public class Application extends android.app.Application {
     }
 
     private void initializeLogger() {
-        mLogger = new Logger(LOGGER_TAG);
+        mLogger = new Logger(new AndroidLog(), LOGGER_TAG);
     }
 
     private void initializeMetaData() {

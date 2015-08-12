@@ -1,4 +1,4 @@
-package tech.arauk.ark.activesupport.application;
+package tech.arauk.ark.android.application;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -8,7 +8,7 @@ import android.os.Bundle;
 import tech.arauk.ark.activesupport.annotations.Beta;
 
 /**
- * Provides the framework's base configuration.
+ * Provides a wrapper for the Android application MetaData.
  *
  * @author Rodrigo Scomasson do Nascimento <rodrigo.sc.na@gmail.com>
  */

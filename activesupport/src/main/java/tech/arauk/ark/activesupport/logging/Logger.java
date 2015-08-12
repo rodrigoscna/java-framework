@@ -1,7 +1,5 @@
 package tech.arauk.ark.activesupport.logging;
 
-import android.util.Log;
-
 import tech.arauk.ark.activesupport.annotations.Beta;
 
 /**
@@ -19,10 +17,17 @@ public class Logger {
     private static final String LOGGER_TAG = "tech.arauk.ark.activesupport.logging";
     private static Logger INSTANCE_HOLDER;
     private Boolean mIsEnabled;
+    private Logging mLogger;
     private String mLoggerTag;
 
     public Logger(String loggerTag) {
         mIsEnabled = true;
+        mLoggerTag = loggerTag;
+    }
+
+    public Logger(Logging logger, String loggerTag) {
+        mIsEnabled = true;
+        mLogger = logger;
         mLoggerTag = loggerTag;
     }
 
@@ -32,6 +37,19 @@ public class Logger {
         }
 
         return INSTANCE_HOLDER;
+    }
+
+    /**
+     * Sets a logging library for the application. The interface must implement
+     * the {@link tech.arauk.ark.activesupport.logging.Logging Logging}
+     * interface.
+     *
+     * @param logger A object which implements the
+     *               {@link tech.arauk.ark.activesupport.logging.Logging Logging}
+     *               interface.
+     */
+    public void setLogger(Logging logger) {
+        mLogger = logger;
     }
 
     /**
@@ -113,7 +131,7 @@ public class Logger {
      */
     public void debug(String tag, String message, Throwable throwable) {
         if (isEnabled()) {
-            Log.d(tag, message, throwable);
+            mLogger.debug(tag, message, throwable);
         }
     }
 
@@ -155,7 +173,7 @@ public class Logger {
      */
     public void error(String tag, String message, Throwable throwable) {
         if (isEnabled()) {
-            Log.e(tag, message, throwable);
+            mLogger.error(tag, message, throwable);
         }
     }
 
@@ -197,7 +215,7 @@ public class Logger {
      */
     public void info(String tag, String message, Throwable throwable) {
         if (isEnabled()) {
-            Log.i(tag, message, throwable);
+            mLogger.info(tag, message, throwable);
         }
     }
 
@@ -239,7 +257,7 @@ public class Logger {
      */
     public void verbose(String tag, String message, Throwable throwable) {
         if (isEnabled()) {
-            Log.v(tag, message, throwable);
+            mLogger.verbose(tag, message, throwable);
         }
     }
 
@@ -281,7 +299,7 @@ public class Logger {
      */
     public void warn(String tag, String message, Throwable throwable) {
         if (isEnabled()) {
-            Log.w(tag, message, throwable);
+            mLogger.warn(tag, message, throwable);
         }
     }
 }

@@ -1,7 +1,6 @@
 package tech.arauk.ark.activerecord.connectionadapters;
 
-import android.os.Bundle;
-
+import java.util.HashMap;
 import java.util.List;
 
 import tech.arauk.ark.activerecord.ActiveRecord;
@@ -9,19 +8,21 @@ import tech.arauk.ark.activerecord.ActiveRelation;
 import tech.arauk.ark.activesupport.annotations.Beta;
 
 /**
+ * An abstract class to expose a standardized database connection API.
+ *
  * @author Rodrigo Scomasson do Nascimento <rodrigo.sc.na@gmail.com>
  */
 @Beta
 public abstract class AbstractAdapter {
-    protected Bundle mConnectionSettings;
+    protected HashMap<String, String> mConnectionSettings;
 
     /**
      * Sets the adapter connection settings if needed.
      *
-     * @param connectionSettings A Bundle object containing the connection
-     *                           settings for the adapter.
+     * @param connectionSettings A HashMap<String, Object> object containing the
+     *                           connection settings for the adapter.
      */
-    public void setConnectionSettings(Bundle connectionSettings) {
+    public void setConnectionSettings(HashMap<String, String> connectionSettings) {
         mConnectionSettings = connectionSettings;
     }
 

@@ -15,7 +15,7 @@ import tech.arauk.ark.activesupport.inflector.Inflections;
  * keys. The default inflections for pluralization, singularization, and
  * uncountable words are kept in
  * {@link tech.arauk.ark.activesupport.inflector.DefaultInflections#initializeDefaultInflections() initializeDefaultInflections}.
- * <p/>
+ * <p>
  * The Ark core team has stated patches for the inflections library will not
  * be accepted in order to avoid breaking legacy applications which may be
  * relying on errant inflections. If you discover an incorrect inflection and
@@ -37,7 +37,7 @@ public class Inflector {
     /**
      * Converts strings to UpperCamelCase. If the uppercaseFirstLetter parameter
      * is set to false, then produces lowerCamelCase.
-     * <p/>
+     * <p>
      * Also converts "/" to "." which is useful for converting paths to
      * packages.
      * <pre>{@code
@@ -63,7 +63,7 @@ public class Inflector {
     /**
      * Converts strings to UpperCamelCase. If the uppercaseFirstLetter parameter
      * is set to false, then produces lowerCamelCase.
-     * <p/>
+     * <p>
      * Also converts "/" to "." which is useful for converting paths to
      * packages.
      * <pre>{@code
@@ -216,7 +216,7 @@ public class Inflector {
 
     /**
      * Creates a foreign key name from a class name.
-     * <p/>
+     * <p>
      * The argument separateClassNameAndIdWithUnderscore sets whether the method
      * should put "_" between the name and "id".
      * <pre>{@code
@@ -235,7 +235,7 @@ public class Inflector {
 
     /**
      * Creates a foreign key name from a class name.
-     * <p/>
+     * <p>
      * The argument separateClassNameAndIdWithUnderscore sets whether the method
      * should put "_" between the name and "id".
      * <pre>{@code
@@ -258,7 +258,7 @@ public class Inflector {
 
     /**
      * Tweaks an attribute name for display to end users.
-     * <p/>
+     * <p>
      * Specifically, performs these transformations:
      * <ul>
      * <li>Applies human inflection rules to the argument.</li>
@@ -268,7 +268,7 @@ public class Inflector {
      * <li>Downcases all words except acronyms.</li>
      * <li>Capitalizes the first word.</li>
      * </ul>
-     * <p/>
+     * <p>
      * The capitalization of the first word can be turned off by setting the
      * capitalizeFirstWord option to false (default is true).
      * <pre>{@code
@@ -291,7 +291,7 @@ public class Inflector {
 
     /**
      * Tweaks an attribute name for display to end users.
-     * <p/>
+     * <p>
      * Specifically, performs these transformations:
      * <ul>
      * <li>Applies human inflection rules to the argument.</li>
@@ -301,7 +301,7 @@ public class Inflector {
      * <li>Downcases all words except acronyms.</li>
      * <li>Capitalizes the first word.</li>
      * </ul>
-     * <p/>
+     * <p>
      * The capitalization of the first word can be turned off by setting the
      * capitalizeFirstWord option to false (default is true).
      * <pre>{@code
@@ -432,7 +432,7 @@ public class Inflector {
 
     /**
      * Returns the plural form of the word in the string.
-     * <p/>
+     * <p>
      * If passed an optional locale parameter, the word will be pluralized using
      * rules defined for that language. By default,this parameter is set to
      * "en-US".
@@ -454,7 +454,7 @@ public class Inflector {
 
     /**
      * Returns the plural form of the word in the string.
-     * <p/>
+     * <p>
      * If passed an optional locale parameter, the word will be pluralized using
      * rules defined for that language. By default,this parameter is set to
      * "en-US".
@@ -482,7 +482,7 @@ public class Inflector {
      * }</pre>
      * The name is assumed to be composed of the full package name plus the
      * class name.
-     * <p/>
+     * <p>
      * null is returned when the name is not in CamelCase or the constant (or
      * part of it) is unknown.
      * <pre>{@code
@@ -506,7 +506,7 @@ public class Inflector {
     /**
      * The reverse of {@link #pluralize(String)}, returns the singular form of a
      * word in a string.
-     * <p/>
+     * <p>
      * If passed an optional locale parameter, the word will be singularized
      * using rules defined for that language. By default, this parameter is set
      * to "en-US".
@@ -529,7 +529,7 @@ public class Inflector {
     /**
      * The reverse of {@link #pluralize(String, String)}, returns the singular
      * form of a word in a string.
-     * <p/>
+     * <p>
      * If passed an optional locale parameter, the word will be singularized
      * using rules defined for that language. By default, this parameter is set
      * to "en-US".
@@ -575,7 +575,7 @@ public class Inflector {
      * Capitalizes all the words and replaces some characters in the string to
      * create a nicer looking title. titlecase is meant for creating pretty
      * output. It is not used in the Inflector internals.
-     * <p/>
+     * <p>
      * titlecase is also aliased as {@link #titleize(String)}.
      * <pre>{@code
      * Inflector.titleize("man from the boondocks") == "Man From The Boondocks"
@@ -595,7 +595,7 @@ public class Inflector {
      * Capitalizes all the words and replaces some characters in the string to
      * create a nicer looking title. titleize is meant for creating pretty
      * output. It is not used in the Inflector internals.
-     * <p/>
+     * <p>
      * titleize is also aliased as {@link #titlecase(String)}.
      * <pre>{@code
      * Inflector.titleize("man from the boondocks") == "Man From The Boondocks"
@@ -613,13 +613,13 @@ public class Inflector {
 
     /**
      * Makes an underscored, lowercase form from the expression in the string.
-     * <p/>
+     * <p>
      * Changes "." to "/" to convert namespaces to paths.
      * <pre>{@code
      * Inflector.underscore("ActiveModel") == "active_model"
      * Inflector.underscore("ark.activemodel.Errors") == "ark/activemodel/errors"
      * }</pre>
-     * <p/>
+     * <p>
      * As a rule of thumb you can think of underscore as the inverse of
      * {@link #camelize(String)}, though there are cases where that does not
      * hold:
