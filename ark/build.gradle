@@ -19,7 +19,6 @@ android {
 }
 
 dependencies {
-    compile "com.android.support:appcompat-v7:22.+"
     compile project(":actionrequest")
     compile project(":activemodel")
     compile project(":activerecord")
