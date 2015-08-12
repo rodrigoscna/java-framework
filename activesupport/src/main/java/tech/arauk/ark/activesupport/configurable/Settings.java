@@ -31,12 +31,22 @@ public class Settings {
     }
 
     /**
+     * Verifies if a key exists in the preferences.
+     *
+     * @param key The name of the preference to retrieve.
+     * @return Wheter or not the requested key exists in the preferences.
+     */
+    public Boolean containsSharedPreference(String key) {
+        return getSharedPreferences().contains(key);
+    }
+
+    /**
      * Retrieve and hold the contents of the preferences file named with your
      * application's metadata, returning a SharedPreferences through which you
      * can retrieve and modify its values.
      * If you don't have any name set in your Manifest file, the framework will
      * use the default internal name.
-     * <p>
+     * <p/>
      * Only one instance of the SharedPreferences object is returned to any
      * callers for the same name, meaning they will see each other's edits as
      * soon as they are made.
@@ -56,7 +66,7 @@ public class Settings {
      * Create a new Editor for the SharedPreferences, through which you can make
      * modifications to the data in the preferences and atomically commit those
      * changes back to the SharedPreferences object.
-     * <p>
+     * <p/>
      * Note that you must call commit() to have any changes you perform in the
      * Editor actually show up in the SharedPreferences.
      *
@@ -143,7 +153,7 @@ public class Settings {
 
     /**
      * Retrieve a set of String values from the preferences.
-     * <p>
+     * <p/>
      * <p>Note that you <em>must not</em> modify the set instance returned
      * by this call.  The consistency of the stored data is not guaranteed
      * if you do, nor is your ability to modify the instance at all.
@@ -226,6 +236,16 @@ public class Settings {
     }
 
     /**
+     * Removes a value in the preferences editor.
+     *
+     * @param key The name of the preference to remove.
+     * @return The current instance of the SharedPreferences.Editor interface.
+     */
+    public SharedPreferences.Editor unsetSharedPreference(String key) {
+        return getSharedPreferencesEditor().remove(key);
+    }
+
+    /**
      * Set a boolean value in the preferences and persists it.
      *
      * @param key      The name of the preference to modify.
@@ -290,7 +310,7 @@ public class Settings {
      *
      * @param key The name of the preference to remove.
      */
-    public void unsetSharedPreference(String key) {
-        getSharedPreferencesEditor().remove(key).apply();
+    public void destroySharedPreference(String key) {
+        unsetSharedPreference(key).apply();
     }
 }

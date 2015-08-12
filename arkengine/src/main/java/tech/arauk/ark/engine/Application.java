@@ -31,17 +31,7 @@ public class Application extends android.app.Application {
     private Settings mSettings;
 
     /**
-     * A singleton instance of the Application subclass.
-     *
-     * @return The singleton instance of the Application subclass.
-     */
-    public static Application getInstance() {
-        return INSTANCE_HOLDER;
-    }
-
-    /**
-     * Current MetaData of the application as set by the system and the
-     * user.
+     * Current MetaData of the application as set by the system and the user.
      *
      * @return The current Application's MetaData instance.
      */
@@ -60,42 +50,78 @@ public class Application extends android.app.Application {
     }
 
     /**
+     * Retrieves the main settings initialized by the application.
+     *
+     * @return The Application's main Settings.
+     */
+    public static Settings getApplicationSettings() {
+        return getInstance().getSettings();
+    }
+
+    /**
+     * A singleton instance of the Application subclass.
+     *
+     * @return The singleton instance of the Application subclass.
+     */
+    public static Application getInstance() {
+        return INSTANCE_HOLDER;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public void onCreate() {
         super.onCreate();
 
-        if (INSTANCE_HOLDER == null) {
-            INSTANCE_HOLDER = this;
-        }
+        this.initializeInstanceHolder();
 
-        INSTANCE_HOLDER.initializeLogger();
-        INSTANCE_HOLDER.initializeMetaData();
+        this.initializeLogger();
+        this.initializeMetaData();
+        this.initializeSettings();
 
-        INSTANCE_HOLDER.initializeActiveRecordConnection();
-        INSTANCE_HOLDER.initializeActiveSupportInflections();
+        this.initializeActiveRecordConnection();
+        this.initializeActiveSupportInflections();
     }
 
-    private void initializeActiveRecordConnection() {
-        String databaseAdapter = getMetaData().getMetaData().getString("database_adapter");
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onTerminate() {
+        INSTANCE_HOLDER.terminateMetaData();
 
-        try {
-            Class<?> aClass = Class.forName("tech.arauk.ark.activerecord.connectionadapters." + databaseAdapter);
-            Constructor<?> aClassConstructor = aClass.getConstructor();
-            AbstractAdapter abstractAdapter = (AbstractAdapter) aClassConstructor.newInstance();
-            abstractAdapter.setConnectionSettings(getActiveRecordConnectionSettings());
+        INSTANCE_HOLDER = null;
 
-            ActiveRecord.establishConnection(abstractAdapter);
-        } catch (ClassNotFoundException cnfe) {
-            throw new UnsupportedOperationException("Database adapter not found.", cnfe);
-        } catch (Exception e) {
-            throw new UnsupportedOperationException("Invalid database adapter.");
-        }
+        super.onTerminate();
     }
 
-    private void initializeActiveSupportInflections() {
-        DefaultInflections.initializeDefaultInflections();
+    /**
+     * Retrieves the main logger initialized by the application.
+     *
+     * @return The Application's main Logger.
+     */
+    public Logger getLogger() {
+        return mLogger;
+    }
+
+    /**
+     * Retrieves the current MetaData of the application as set by the system
+     * and the user.
+     *
+     * @return The current Application's MetaData instance.
+     */
+    public MetaData getMetaData() {
+        return mMetaData;
+    }
+
+    /**
+     * Retrieves the main settings initialized by the application.
+     *
+     * @return The Application's main Settings.
+     */
+    public Settings getSettings() {
+        return mSettings;
     }
 
     private Bundle getActiveRecordConnectionSettings() {
@@ -112,71 +138,48 @@ public class Application extends android.app.Application {
         return activeRecordConnectionSettings;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onTerminate() {
-        INSTANCE_HOLDER.terminateMetaData();
+    private void initializeActiveRecordConnection() {
+        if (getMetaData().getMetaData().containsKey("database_adapter")) {
+            String databaseAdapter = getMetaData().getMetaData().getString("database_adapter");
 
-        INSTANCE_HOLDER = null;
+            try {
+                Class<?> aClass = Class.forName("tech.arauk.ark.activerecord.connectionadapters." + databaseAdapter);
+                Constructor<?> aClassConstructor = aClass.getConstructor();
+                AbstractAdapter abstractAdapter = (AbstractAdapter) aClassConstructor.newInstance();
+                abstractAdapter.setConnectionSettings(getActiveRecordConnectionSettings());
 
-        super.onTerminate();
+                ActiveRecord.establishConnection(abstractAdapter);
+            } catch (ClassNotFoundException cnfe) {
+                throw new UnsupportedOperationException("Database adapter not found.", cnfe);
+            } catch (Exception e) {
+                throw new UnsupportedOperationException("Invalid database adapter.");
+            }
+        }
     }
 
-    /**
-     * Initialize the Application's Logger.
-     */
+    private void initializeActiveSupportInflections() {
+        DefaultInflections.initializeDefaultInflections();
+    }
+
+    private void initializeInstanceHolder() {
+        if (INSTANCE_HOLDER == null) {
+            INSTANCE_HOLDER = this;
+        }
+    }
+
     private void initializeLogger() {
         mLogger = new Logger(LOGGER_TAG);
     }
 
-    /**
-     * Retrieves the main logger initialized by the application.
-     *
-     * @return The Application's main Logger.
-     */
-    public Logger getLogger() {
-        return mLogger;
-    }
-
-    /**
-     * Initialize the Application's MetaData cache.
-     */
     private void initializeMetaData() {
         mMetaData = new MetaData(this);
     }
 
-    /**
-     * Terminates the Application's MetaData in order for it to close properly.
-     */
-    private void terminateMetaData() {
-        mMetaData = mMetaData.terminate();
-    }
-
-    /**
-     * Retrieves the current MetaData of the application as set by the system
-     * and the user.
-     *
-     * @return The current Application's MetaData instance.
-     */
-    public MetaData getMetaData() {
-        return mMetaData;
-    }
-
-    /**
-     * Initialize the Application's MetaData cache.
-     */
     private void initializeSettings() {
         mSettings = new Settings(this, SETTINGS_NAME);
     }
 
-    /**
-     * Retrieves the main settings initialized by the application.
-     *
-     * @return The Application's main Settings.
-     */
-    public Settings getSettings() {
-        return mSettings;
+    private void terminateMetaData() {
+        mMetaData = mMetaData.terminate();
     }
 }

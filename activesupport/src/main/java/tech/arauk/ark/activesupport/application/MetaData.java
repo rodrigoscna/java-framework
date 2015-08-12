@@ -24,6 +24,16 @@ public class MetaData {
     }
 
     /**
+     * Additional meta-data associated with the application. The meta-data can
+     * be defined in your AndroidManifest.xml file.
+     *
+     * @return The application's associated meta-data.
+     */
+    public Bundle getMetaData() {
+        return mMetaData;
+    }
+
+    /**
      * Initialize the Application's metadata cache.
      */
     private void loadMetaData() {
@@ -31,6 +41,10 @@ public class MetaData {
             mMetaData = mContext.getPackageManager().getApplicationInfo(mContext.getPackageName(), PackageManager.GET_META_DATA).metaData;
         } catch (NameNotFoundException nnfe) {
             throw new RuntimeException("Application info not found. Have you configured your AndroidManifest.xml's <application> tag properly?");
+        }
+
+        if (mMetaData == null) {
+            mMetaData = new Bundle();
         }
     }
 
@@ -44,15 +58,5 @@ public class MetaData {
         mMetaData = null;
 
         return null;
-    }
-
-    /**
-     * Additional meta-data associated with the application. The meta-data can
-     * be defined in your AndroidManifest.xml file.
-     *
-     * @return The application's associated meta-data.
-     */
-    public Bundle getMetaData() {
-        return mMetaData;
     }
 }
