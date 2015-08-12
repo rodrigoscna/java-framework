@@ -23,5 +23,5 @@ dependencies {
     compile project(":activemodel")
     compile project(":activerecord")
     compile project(":activesupport")
-    compile project(":arkengine")
+    compile project(":android")
 }
