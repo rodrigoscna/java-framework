@@ -4,5 +4,4 @@ dependencies {
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile project(":activerecord")
     compile project(":activesupport")
-    compile project(":arel")
 }

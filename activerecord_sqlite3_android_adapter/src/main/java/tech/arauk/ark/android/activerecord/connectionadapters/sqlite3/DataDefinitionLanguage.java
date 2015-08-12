@@ -1,4 +1,4 @@
-package tech.arauk.ark.activerecord.connectionadapters.sqlite3;
+package tech.arauk.ark.android.activerecord.connectionadapters.sqlite3;
 
 import tech.arauk.ark.activesupport.annotations.Beta;
 
