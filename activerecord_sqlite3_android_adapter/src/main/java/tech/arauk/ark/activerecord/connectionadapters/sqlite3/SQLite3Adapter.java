@@ -6,14 +6,14 @@ import java.util.List;
 
 import tech.arauk.ark.activerecord.ActiveRecord;
 import tech.arauk.ark.activerecord.ActiveRelation;
-import tech.arauk.ark.activerecord.connectionadapters.AbstractAdapter;
 import tech.arauk.ark.activesupport.annotations.Beta;
+import tech.arauk.ark.android.activerecord.AndroidAbstractAdapter;
 
 /**
  * @author Rodrigo Scomasson do Nascimento <rodrigo.sc.na@gmail.com>
  */
 @Beta
-public class SQLite3Adapter extends AbstractAdapter {
+public class SQLite3Adapter extends AndroidAbstractAdapter {
     private static SQLiteDatabase sSQLiteDatabase;
     private String mDatabaseName;
     private Integer mDatabaseFlags;
@@ -32,8 +32,15 @@ public class SQLite3Adapter extends AbstractAdapter {
     @Override
     public void initializeConnection() {
         if (sSQLiteDatabase == null) {
-            String mDatabaseName = mConnectionSettings.getString("database_name");
-            Integer mDatabaseFlags = mConnectionSettings.getInt("database_flags"); //
+            String mDatabaseName;
+            Integer mDatabaseFlags;
+
+            mDatabaseName = mConnectionSettings.get("database_name");
+            try {
+                mDatabaseFlags = Integer.parseInt(mConnectionSettings.get("database_flags"));
+            } catch (NumberFormatException nfe) {
+                mDatabaseFlags = null;
+            }
 
             if (mDatabaseName == null) {
                 throw new RuntimeException("Database name not defined.");
@@ -43,7 +50,7 @@ public class SQLite3Adapter extends AbstractAdapter {
                 mDatabaseFlags = SQLiteDatabase.CREATE_IF_NECESSARY;
             }
 
-//            sSQLiteDatabase = SQLiteDatabase.openDatabase(mDatabaseName, null, mDatabaseFlags);
+            sSQLiteDatabase = SQLiteDatabase.openDatabase(mDatabaseName, null, mDatabaseFlags);
         }
     }
 

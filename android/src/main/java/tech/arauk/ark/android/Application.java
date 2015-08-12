@@ -145,7 +145,7 @@ public class Application extends android.app.Application {
             String databaseAdapter = getMetaData().getMetaData().getString("database_adapter");
 
             try {
-                Class<?> aClass = Class.forName("tech.arauk.ark.activerecord.connectionadapters." + databaseAdapter);
+                Class<?> aClass = Class.forName(databaseAdapter);
                 Constructor<?> aClassConstructor = aClass.getConstructor();
                 AbstractAdapter abstractAdapter = (AbstractAdapter) aClassConstructor.newInstance();
                 abstractAdapter.setConnectionSettings(getActiveRecordConnectionSettings());
