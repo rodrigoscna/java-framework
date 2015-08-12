@@ -23,4 +23,5 @@ dependencies {
     compile "com.android.support:appcompat-v7:22.+"
     compile project(":activerecord")
     compile project(":activesupport")
+    compile project(":arel")
 }
