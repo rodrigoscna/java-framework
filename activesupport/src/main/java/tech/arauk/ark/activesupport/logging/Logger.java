@@ -4,7 +4,7 @@ import tech.arauk.ark.activesupport.annotations.Beta;
 
 /**
  * API for sending log output.
- * <p>
+ * <p/>
  * The order in terms of verbosity, from least to most is error, warn, info,
  * debug, verbose. Verbose should never be compiled into an application except
  * during development. Debug logs are compiled in but stripped at runtime.
@@ -20,12 +20,12 @@ public class Logger {
     private Logging mLogger;
     private String mLoggerTag;
 
-    public Logger(String loggerTag) {
+    private Logger(String loggerTag) {
         mIsEnabled = true;
         mLoggerTag = loggerTag;
     }
 
-    public Logger(Logging logger, String loggerTag) {
+    private Logger(Logging logger, String loggerTag) {
         mIsEnabled = true;
         mLogger = logger;
         mLoggerTag = loggerTag;
@@ -34,6 +34,18 @@ public class Logger {
     public static Logger getDefaultLogger() {
         if (INSTANCE_HOLDER == null) {
             INSTANCE_HOLDER = new Logger(LOGGER_TAG);
+        }
+
+        return INSTANCE_HOLDER;
+    }
+
+    public static Logger getDefaultLogger(Logging logging) {
+        return getDefaultLogger(logging, LOGGER_TAG);
+    }
+
+    public static Logger getDefaultLogger(Logging logging, String loggerTag) {
+        if (INSTANCE_HOLDER == null) {
+            INSTANCE_HOLDER = new Logger(logging, loggerTag);
         }
 
         return INSTANCE_HOLDER;

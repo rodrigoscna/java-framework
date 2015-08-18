@@ -170,7 +170,7 @@ public class Application extends android.app.Application {
     }
 
     private void initializeLogger() {
-        mLogger = new Logger(new AndroidLog(), LOGGER_TAG);
+        mLogger = Logger.getDefaultLogger(new AndroidLog(), LOGGER_TAG);
     }
 
     private void initializeMetaData() {
