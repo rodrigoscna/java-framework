@@ -9,4 +9,6 @@ dependencies {
     compile project(":activemodel")
     compile project(":activesupport")
     compile project(":arel")
+
+    testCompile "junit:junit:4.12"
 }
