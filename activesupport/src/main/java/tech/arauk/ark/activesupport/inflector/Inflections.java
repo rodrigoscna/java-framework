@@ -145,28 +145,28 @@ public class Inflections {
         mUncountables.remove(singular);
         mUncountables.remove(plural);
 
-        String s0 = singular.substring(0, 0);
-        String srest = singular.substring(1);
+        String s0 = singular.substring(0, 1);
+        String sRest = singular.substring(1);
 
-        String p0 = singular.substring(0, 0);
-        String prest = singular.substring(1);
+        String p0 = plural.substring(0, 1);
+        String pRest = plural.substring(1);
 
         if (s0.toUpperCase().equals(p0.toUpperCase())) {
-            plural("(" + s0 + ")" + srest + "$", "$1" + prest);
-            plural("(" + p0 + ")" + prest + "$", "$1" + prest);
+            plural("(" + s0 + ")" + sRest + "$", "$1" + pRest);
+            plural("(" + p0 + ")" + pRest + "$", "$1" + pRest);
 
-            singular("(" + s0 + ")" + srest + "$", "$1" + srest);
-            singular("(" + p0 + ")" + prest + "$", "$1" + srest);
+            singular("(" + s0 + ")" + sRest + "$", "$1" + sRest);
+            singular("(" + p0 + ")" + pRest + "$", "$1" + sRest);
         } else {
-            plural(s0.toUpperCase() + "(?i)" + srest + "$", p0.toUpperCase() + prest);
-            plural(s0.toLowerCase() + "(?i)" + srest + "$", p0.toLowerCase() + prest);
-            plural(p0.toUpperCase() + "(?i)" + prest + "$", p0.toUpperCase() + prest);
-            plural(p0.toLowerCase() + "(?i)" + prest + "$", p0.toLowerCase() + prest);
+            plural(s0.toUpperCase() + "(?i)" + sRest + "$", p0.toUpperCase() + pRest);
+            plural(s0.toLowerCase() + "(?i)" + sRest + "$", p0.toLowerCase() + pRest);
+            plural(p0.toUpperCase() + "(?i)" + pRest + "$", p0.toUpperCase() + pRest);
+            plural(p0.toLowerCase() + "(?i)" + pRest + "$", p0.toLowerCase() + pRest);
 
-            singular(s0.toUpperCase() + "(?i)" + srest + "$", s0.toUpperCase() + srest);
-            singular(s0.toLowerCase() + "(?i)" + srest + "$", s0.toLowerCase() + srest);
-            singular(p0.toUpperCase() + "(?i)" + prest + "$", s0.toUpperCase() + srest);
-            singular(p0.toLowerCase() + "(?i)" + prest + "$", s0.toLowerCase() + srest);
+            singular(s0.toUpperCase() + "(?i)" + sRest + "$", s0.toUpperCase() + sRest);
+            singular(s0.toLowerCase() + "(?i)" + sRest + "$", s0.toLowerCase() + sRest);
+            singular(p0.toUpperCase() + "(?i)" + pRest + "$", s0.toUpperCase() + sRest);
+            singular(p0.toLowerCase() + "(?i)" + pRest + "$", s0.toLowerCase() + sRest);
         }
     }
 
