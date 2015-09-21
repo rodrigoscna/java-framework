@@ -21,7 +21,7 @@ import tech.arauk.ark.activesupport.core_ext.StringUtils;
  * inflect.irregular("octopus", "octopi");
  * inflect.uncountable("equipment");
  * }</pre>
- * <p>
+ * <p/>
  * New rules are added at the top. So in the example above, the irregular rule
  * for octopus will now be the first of the pluralization and singularization
  * rules that is runs. This guarantees that your rules run before any of the
@@ -40,17 +40,12 @@ public class Inflections {
     private List<String> mUncountables;
 
     public Inflections() {
-        mAcronyms = new HashMap<String, String>();
-        mAcronymRegex = "(?=a)b";
-        mHumans = new ArrayList<String[]>();
-        mPlurals = new ArrayList<String[]>();
-        mSingulars = new ArrayList<String[]>();
-        mUncountables = new ArrayList<String>();
+        clear();
     }
 
     public static Map<String, Inflections> getInstances() {
         if (INSTANCE_HOLDER == null) {
-            INSTANCE_HOLDER = new HashMap<String, Inflections>();
+            INSTANCE_HOLDER = new HashMap<>();
         }
 
         return INSTANCE_HOLDER;
@@ -181,12 +176,12 @@ public class Inflections {
     }
 
     public void clear() {
-        mAcronyms = new HashMap<String, String>();
+        mAcronyms = new HashMap<>();
         mAcronymRegex = "(?=a)b";
-        mHumans = new ArrayList<String[]>();
-        mPlurals = new ArrayList<String[]>();
-        mSingulars = new ArrayList<String[]>();
-        mUncountables = new ArrayList<String>();
+        mHumans = new ArrayList<>();
+        mPlurals = new ArrayList<>();
+        mSingulars = new ArrayList<>();
+        mUncountables = new ArrayList<>();
     }
 
     public void clear(String scope) {
@@ -198,20 +193,20 @@ public class Inflections {
                     clear();
                     break;
                 case "acronyms":
-                    mAcronyms = new HashMap<String, String>();
+                    mAcronyms = new HashMap<>();
                     mAcronymRegex = "(?=a)b";
                     break;
                 case "humans":
-                    mHumans = new ArrayList<String[]>();
+                    mHumans = new ArrayList<>();
                     break;
                 case "plurals":
-                    mPlurals = new ArrayList<String[]>();
+                    mPlurals = new ArrayList<>();
                     break;
                 case "singulars":
-                    mSingulars = new ArrayList<String[]>();
+                    mSingulars = new ArrayList<>();
                     break;
                 case "uncountables":
-                    mUncountables = new ArrayList<String>();
+                    mUncountables = new ArrayList<>();
                     break;
                 default:
                     throw new IllegalArgumentException();
