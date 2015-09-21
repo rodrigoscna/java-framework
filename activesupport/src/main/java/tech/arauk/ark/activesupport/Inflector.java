@@ -667,13 +667,19 @@ public class Inflector {
      * @return A new string in the inflected format.
      */
     private static String applyInflections(String word, List<String[]> rules) {
+        Boolean matched = false;
         String result = word;
 
         if (StringUtils.isEmpty(word) || inflections().getUncountables().contains(result.toLowerCase())) {
             return result;
         } else {
             for (String[] rule : rules) {
-                result = result.replaceAll(rule[0], rule[1]);
+                Pattern pattern = Pattern.compile(rule[0]);
+                Matcher matcher = pattern.matcher(result);
+                while (matcher.find() && !matched) {
+                    result = result.replaceFirst(rule[0], rule[1]);
+                    matched = true;
+                }
             }
 
             return result;
