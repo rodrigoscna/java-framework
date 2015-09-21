@@ -1,16 +1,13 @@
 package tech.arauk.ark.activesupport;
 
-import android.test.AndroidTestCase;
+import junit.framework.TestCase;
 
-import java.util.Iterator;
+import java.util.List;
 
 import tech.arauk.ark.activesupport.inflector.DefaultInflections;
 import tech.arauk.ark.activesupport.inflector.Inflections;
 
-/**
- * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
- */
-public class InflectorTest extends AndroidTestCase {
+public class InflectorTest extends TestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
@@ -33,9 +30,8 @@ public class InflectorTest extends AndroidTestCase {
     }
 
     public void testUncontabilityOf() {
-        Iterator iterator = Inflector.inflections().getUncountables().iterator();
-        while (iterator.hasNext()) {
-            String uncountable = String.valueOf(iterator.next());
+        List<String> uncountables = Inflector.inflections().getUncountables();
+        for (String uncountable : uncountables) {
             assertEquals(uncountable, Inflector.singularize(uncountable));
             assertEquals(uncountable, Inflector.pluralize(uncountable));
             assertEquals(Inflector.pluralize(uncountable), Inflector.singularize(uncountable));
@@ -166,11 +162,11 @@ public class InflectorTest extends AndroidTestCase {
                 {"RoRails", "ro_rails", "Ro rails", "Ro Rails"},
         };
 
-        for (int i = 0; i < testCases.length; i++) {
-            String camel = testCases[i][0];
-            String under = testCases[i][1];
-            String human = testCases[i][2];
-            String title = testCases[i][3];
+        for (String[] testCase : testCases) {
+            String camel = testCase[0];
+            String under = testCase[1];
+            String human = testCase[2];
+            String title = testCase[3];
 
             assertEquals(camel, Inflector.camelize(under));
             assertEquals(camel, Inflector.camelize(camel));
@@ -449,10 +445,10 @@ public class InflectorTest extends AndroidTestCase {
 
         Inflector.inflections("es").clear();
 
-        assert Inflector.inflections("es").getPlurals().isEmpty();
-        assert Inflector.inflections("es").getSingulars().isEmpty();
-        assert !Inflector.inflections().getPlurals().isEmpty();
-        assert !Inflector.inflections().getSingulars().isEmpty();
+        assertTrue(Inflector.inflections("es").getPlurals().isEmpty());
+        assertTrue(Inflector.inflections("es").getSingulars().isEmpty());
+        assertTrue(!Inflector.inflections().getPlurals().isEmpty());
+        assertTrue(!Inflector.inflections().getSingulars().isEmpty());
     }
 
     public void testIrregularityBetweenSingularAndPlural() {
@@ -501,20 +497,20 @@ public class InflectorTest extends AndroidTestCase {
         inflect.human("col_rpted_bugs", "Reported bugs");
 
         inflect.clear("acronyms");
-        assert inflect.getAcronyms().isEmpty();
+        assertTrue(inflect.getAcronyms().isEmpty());
         assertEquals("(?=a)b", inflect.getAcronymRegex());
 
         inflect.clear("humans");
-        assert inflect.getHumans().isEmpty();
+        assertTrue(inflect.getHumans().isEmpty());
 
         inflect.clear("plurals");
-        assert inflect.getPlurals().isEmpty();
+        assertTrue(inflect.getPlurals().isEmpty());
 
         inflect.clear("singulars");
-        assert inflect.getSingulars().isEmpty();
+        assertTrue(inflect.getSingulars().isEmpty());
 
         inflect.clear("uncountables");
-        assert inflect.getUncountables().isEmpty();
+        assertTrue(inflect.getUncountables().isEmpty());
     }
 
     public void testClearAll() {
@@ -527,12 +523,12 @@ public class InflectorTest extends AndroidTestCase {
 
         inflect.clear("all");
 
-        assert inflect.getAcronyms().isEmpty();
+        assertTrue(inflect.getAcronyms().isEmpty());
         assertEquals("(?=a)b", inflect.getAcronymRegex());
-        assert inflect.getHumans().isEmpty();
-        assert inflect.getPlurals().isEmpty();
-        assert inflect.getSingulars().isEmpty();
-        assert inflect.getUncountables().isEmpty();
+        assertTrue(inflect.getHumans().isEmpty());
+        assertTrue(inflect.getPlurals().isEmpty());
+        assertTrue(inflect.getSingulars().isEmpty());
+        assertTrue(inflect.getUncountables().isEmpty());
     }
 
     public void testClearWithNoArguments() {
@@ -545,12 +541,12 @@ public class InflectorTest extends AndroidTestCase {
 
         inflect.clear();
 
-        assert inflect.getAcronyms().isEmpty();
+        assertTrue(inflect.getAcronyms().isEmpty());
         assertEquals("(?=a)b", inflect.getAcronymRegex());
-        assert inflect.getHumans().isEmpty();
-        assert inflect.getPlurals().isEmpty();
-        assert inflect.getSingulars().isEmpty();
-        assert inflect.getUncountables().isEmpty();
+        assertTrue(inflect.getHumans().isEmpty());
+        assertTrue(inflect.getPlurals().isEmpty());
+        assertTrue(inflect.getSingulars().isEmpty());
+        assertTrue(inflect.getUncountables().isEmpty());
     }
 
     public void testInflectionsWithUncountableWords() {
