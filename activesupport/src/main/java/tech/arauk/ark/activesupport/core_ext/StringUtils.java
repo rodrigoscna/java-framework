@@ -41,7 +41,7 @@ public class StringUtils {
         while (iterator.hasNext()) {
             joinedString.append(iterator.next().toString());
 
-            if (!iterator.hasNext()) {
+            if (iterator.hasNext()) {
                 joinedString.append(glue);
             }
         }
