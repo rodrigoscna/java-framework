@@ -30,6 +30,28 @@ public class StringUtils {
      * string, separated by glue.
      *
      * @param glue The desired separator.
+     * @param array The array of strings to join.
+     * @return A string joined by the desired separator.
+     */
+    public static String join(String[] array, String glue) {
+        StringBuilder joinedString = new StringBuilder();
+
+        for (int i = 0; i < array.length; i++) {
+            joinedString.append(array[i]);
+
+            if (i < array.length - 1) {
+                joinedString.append(glue);
+            }
+        }
+
+        return joinedString.toString();
+    }
+
+    /**
+     * Returns a string created by converting each element of the array to a
+     * string, separated by glue.
+     *
+     * @param glue The desired separator.
      * @param list The list of elements to join.
      * @return A string joined by the desired separator.
      */
