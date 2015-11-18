@@ -68,8 +68,8 @@ public class InflectorTest extends TestCase {
             String singular = InflectorTestCases.SINGULAR_TO_PLURAL[i][0];
             String plural = InflectorTestCases.SINGULAR_TO_PLURAL[i][1];
 
-            assertEquals(singular, Inflector.pluralize(plural));
-            assertEquals(Inflector.capitalize(singular), Inflector.pluralize(Inflector.capitalize(plural)));
+            assertEquals(singular, Inflector.singularize(plural));
+            assertEquals(Inflector.capitalize(singular), Inflector.singularize(Inflector.capitalize(plural)));
         }
     }
 

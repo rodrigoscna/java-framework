@@ -4,7 +4,6 @@ package tech.arauk.ark.activesupport;
  * A collection of test cases for the inflection methods.
  *
  * @author Rodrigo Scomasson do Nascimento <rodrigo.sc.na@gmail.com>
- * @version 4.2.5
  */
 public class InflectorTestCases {
     public static String[][] SINGULAR_TO_PLURAL = {
