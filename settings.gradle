@@ -1,3 +1,4 @@
+include ":actionpack"
 include ":actionrequest"
 include ":activemodel"
 include ":activerecord"
