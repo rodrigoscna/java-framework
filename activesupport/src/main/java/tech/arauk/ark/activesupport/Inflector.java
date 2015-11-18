@@ -107,7 +107,7 @@ public class Inflector {
             }
         }
 
-        pattern = Pattern.compile("(?:_|(/))([a-z\\d]*)", Pattern.CASE_INSENSITIVE);
+        pattern = Pattern.compile("(?:_|(\\/))([a-z\\d]*)", Pattern.CASE_INSENSITIVE);
         matcher = pattern.matcher(camelizedString);
         while (matcher.find()) {
             String match1 = matcher.group(1) != null ? matcher.group(1) : "";
@@ -119,7 +119,7 @@ public class Inflector {
 
         String[] splitCamelizedString = camelizedString.split("\\.");
         for (int i = 0; i < splitCamelizedString.length - 1; i++) {
-            splitCamelizedString[i] = splitCamelizedString[i].toLowerCase();
+            splitCamelizedString[i] = underscore(splitCamelizedString[i]);
         }
 
         camelizedString = StringUtils.join(splitCamelizedString, ".");
