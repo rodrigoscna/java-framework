@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import tech.arauk.ark.activesupport.annotations.Beta;
 import tech.arauk.ark.activesupport.core_ext.StringUtils;
@@ -155,11 +156,11 @@ public class Inflections {
         String pRest = plural.substring(1);
 
         if (s0.toUpperCase().equals(p0.toUpperCase())) {
-            plural("(" + s0 + ")" + sRest + "$", "$1" + pRest);
-            plural("(" + p0 + ")" + pRest + "$", "$1" + pRest);
+            plural("(" + s0 + ")" + sRest + "$", "$1" + pRest, Pattern.CASE_INSENSITIVE);
+            plural("(" + p0 + ")" + pRest + "$", "$1" + pRest, Pattern.CASE_INSENSITIVE);
 
-            singular("(" + s0 + ")" + sRest + "$", "$1" + sRest);
-            singular("(" + p0 + ")" + pRest + "$", "$1" + sRest);
+            singular("(" + s0 + ")" + sRest + "$", "$1" + sRest, Pattern.CASE_INSENSITIVE);
+            singular("(" + p0 + ")" + pRest + "$", "$1" + sRest, Pattern.CASE_INSENSITIVE);
         } else {
             plural(s0.toUpperCase() + "(?i)" + sRest + "$", p0.toUpperCase() + pRest);
             plural(s0.toLowerCase() + "(?i)" + sRest + "$", p0.toLowerCase() + pRest);
