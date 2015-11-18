@@ -4,6 +4,8 @@ import tech.arauk.ark.activesupport.Inflector;
 import tech.arauk.ark.activesupport.annotations.Beta;
 
 /**
+ * Default set of inflections for the English (US) language.
+ *
  * @author Rodrigo Scomasson do Nascimento <rodrigo.sc.na@gmail.com>
  */
 @Beta
