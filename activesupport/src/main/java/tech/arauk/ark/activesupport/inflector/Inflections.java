@@ -34,9 +34,9 @@ public class Inflections {
     private static Map<String, Inflections> INSTANCE_HOLDER;
     private Map<String, String> mAcronyms;
     private String mAcronymRegex;
-    private List<String[]> mHumans;
-    private List<String[]> mPlurals;
-    private List<String[]> mSingulars;
+    private List<Rule> mHumans;
+    private List<Rule> mPlurals;
+    private List<Rule> mSingulars;
     private List<String> mUncountables;
 
     public Inflections() {
@@ -103,15 +103,15 @@ public class Inflections {
         return mAcronymRegex;
     }
 
-    public List<String[]> getHumans() {
+    public List<Rule> getHumans() {
         return mHumans;
     }
 
-    public List<String[]> getPlurals() {
+    public List<Rule> getPlurals() {
         return mPlurals;
     }
 
-    public List<String[]> getSingulars() {
+    public List<Rule> getSingulars() {
         return mSingulars;
     }
 
@@ -125,15 +125,23 @@ public class Inflections {
     }
 
     public void plural(String rule, String replacement) {
+        plural(rule, replacement, 0);
+    }
+
+    public void plural(String rule, String replacement, int flags) {
         mUncountables.remove(rule);
         mUncountables.remove(replacement);
-        mPlurals.add(0, new String[]{rule, replacement});
+        mPlurals.add(0, new Rule(rule, replacement, flags));
     }
 
     public void singular(String rule, String replacement) {
+        singular(rule, replacement, 0);
+    }
+
+    public void singular(String rule, String replacement, int flags) {
         mUncountables.remove(rule);
         mUncountables.remove(replacement);
-        mSingulars.add(0, new String[]{rule, replacement});
+        mSingulars.add(0, new Rule(rule, replacement, flags));
     }
 
     public void irregular(String singular, String plural) {
@@ -172,7 +180,7 @@ public class Inflections {
     }
 
     public void human(String rule, String replacement) {
-        mHumans.add(0, new String[]{rule, replacement});
+        mHumans.add(0, new Rule(rule, replacement));
     }
 
     public void clear() {
@@ -211,6 +219,23 @@ public class Inflections {
                 default:
                     throw new IllegalArgumentException();
             }
+        }
+    }
+
+    public class Rule {
+        public String rule;
+        public String replacement;
+        public int flags;
+
+        public Rule(String rule, String replacement) {
+            this.rule = rule;
+            this.replacement = replacement;
+        }
+
+        public Rule(String rule, String replacement, int flags) {
+            this.rule = rule;
+            this.replacement = replacement;
+            this.flags = flags;
         }
     }
 }

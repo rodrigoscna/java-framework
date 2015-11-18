@@ -117,6 +117,13 @@ public class Inflector {
 
         camelizedString = camelizedString.replaceAll("/", "\\.");
 
+        String[] splitCamelizedString = camelizedString.split("\\.");
+        for (int i = 0; i < splitCamelizedString.length - 1; i++) {
+            splitCamelizedString[i] = splitCamelizedString[i].toLowerCase();
+        }
+
+        camelizedString = StringUtils.join(splitCamelizedString, ".");
+
         return camelizedString;
     }
 
@@ -321,7 +328,48 @@ public class Inflector {
      * @return The humanized version of the word.
      */
     public static String humanize(String lowerCaseAndUnderscoredWord, boolean capitalizeFirstWord) {
-        throw new UnsupportedOperationException("Not implemented yet: " + lowerCaseAndUnderscoredWord + " - " + capitalizeFirstWord);
+        String humanizedString = lowerCaseAndUnderscoredWord;
+
+        Pattern pattern;
+        Matcher matcher;
+        Boolean matched = false;
+        String group;
+
+        List<Inflections.Rule> humans = inflections().getHumans();
+        for (Inflections.Rule human : humans) {
+            pattern = Pattern.compile(human.rule, human.flags);
+            matcher = pattern.matcher(humanizedString);
+            while (matcher.find() && !matched) {
+                humanizedString = humanizedString.replaceFirst(human.rule, human.replacement);
+                matched = true;
+            }
+        }
+
+        humanizedString = humanizedString.replaceFirst("\\A_+", "");
+        humanizedString = humanizedString.replaceFirst("_id\\z", "");
+        humanizedString = humanizedString.replaceAll("_", " ");
+
+        pattern = Pattern.compile("([a-z\\d]*)", Pattern.CASE_INSENSITIVE);
+        matcher = pattern.matcher(humanizedString);
+        while (matcher.find()) {
+            group = matcher.group();
+            if (inflections().getAcronyms().containsKey(group)) {
+                humanizedString = humanizedString.replaceFirst(group, inflections().getAcronyms().get(group));
+            } else {
+                humanizedString = humanizedString.replaceFirst(group, group.toLowerCase());
+            }
+        }
+
+        if (capitalizeFirstWord) {
+            pattern = Pattern.compile("\\A\\w", Pattern.CASE_INSENSITIVE);
+            matcher = pattern.matcher(humanizedString);
+            if (matcher.find()) {
+                group = matcher.group();
+                humanizedString = humanizedString.replaceFirst(group, group.toUpperCase());
+            }
+        }
+
+        return humanizedString;
     }
 
     /**
@@ -608,7 +656,25 @@ public class Inflector {
      * @return A new string in the format of a nicer looking title.
      */
     public static String titleize(String word) {
-        throw new UnsupportedOperationException("Not implemented yet: " + word);
+        String titleizedString = word;
+        titleizedString = underscore(titleizedString);
+        titleizedString = humanize(titleizedString);
+
+        Pattern pattern;
+        Matcher matcher;
+
+        pattern = Pattern.compile("\\b(?<!['’`])[a-z]");
+        matcher = pattern.matcher(titleizedString);
+        while (matcher.find()) {
+            String group = matcher.group();
+
+            String start = titleizedString.substring(0, matcher.start());
+            String end = titleizedString.substring(matcher.end());
+
+            titleizedString = start + capitalize(group) + end;
+        }
+
+        return titleizedString;
     }
 
     /**
@@ -627,23 +693,31 @@ public class Inflector {
      * Inflector.camelize(Inflector.underscore("SSLError")) == "SslError"
      * }</pre>
      *
-     * @param camelizedWord The camel case word to be underscored.
+     * @param camelCasedWord The camel case word to be underscored.
      * @return A new string in the underscored format.
      */
-    public static String underscore(String camelizedWord) {
-        String underscoredString = camelizedWord;
-        underscoredString = underscoredString.replaceAll("\\.", "\\/");
-
+    public static String underscore(String camelCasedWord) {
         Pattern pattern;
         Matcher matcher;
 
-        pattern = Pattern.compile("(?:(?<=([A-Za-z\\d]))|\\b)(" + inflections().getAcronymRegex() + ")(?=\\b|[^a-z])");
+        pattern = Pattern.compile("[A-Z-]|\\.");
+        matcher = pattern.matcher(camelCasedWord);
+        if (!matcher.find()) {
+            return camelCasedWord;
+        }
+
+        String underscoredString = camelCasedWord;
+        underscoredString = underscoredString.replaceAll("(\\.)(?=\\b)", "\\/");
+
+        pattern = Pattern.compile("(?<=([A-Za-z\\d]))(" + inflections().getAcronymRegex() + ")(?=\\b|[^a-z])");
         matcher = pattern.matcher(underscoredString);
         while (matcher.find()) {
             String match1 = matcher.group(1) != null ? matcher.group(1) : "";
             String match2 = matcher.group(2) != null ? matcher.group(2) : "";
 
-            underscoredString = underscoredString.replaceFirst(matcher.group(), (match1 != null) ? match1 + "_" : "" + match2.toLowerCase());
+            String group = matcher.group();
+
+            underscoredString = underscoredString.replaceFirst(group, (!StringUtils.isEmpty(match1) ? "_" : "") + match2.toLowerCase());
         }
 
         underscoredString = underscoredString.replaceAll("([A-Z\\d]+)([A-Z][a-z])", "$1_$2");
@@ -666,19 +740,26 @@ public class Inflector {
      * @param rules The rules to be used for the inflection.
      * @return A new string in the inflected format.
      */
-    private static String applyInflections(String word, List<String[]> rules) {
-        Boolean matched = false;
+    private static String applyInflections(String word, List<Inflections.Rule> rules) {
         String result = word;
 
-        if (StringUtils.isEmpty(word) || inflections().getUncountables().contains(result.toLowerCase())) {
+        Pattern pattern;
+        Matcher matcher;
+
+        pattern = Pattern.compile("\\b\\w+\\Z");
+        matcher = pattern.matcher(word);
+
+        String uncountableWord = matcher.find() ? matcher.group() : word;
+
+        if (StringUtils.isEmpty(word) || inflections().getUncountables().contains(uncountableWord.toLowerCase())) {
             return result;
         } else {
-            for (String[] rule : rules) {
-                Pattern pattern = Pattern.compile(rule[0]);
-                Matcher matcher = pattern.matcher(result);
-                while (matcher.find() && !matched) {
-                    result = result.replaceFirst(rule[0], rule[1]);
-                    matched = true;
+            for (Inflections.Rule rule : rules) {
+                pattern = Pattern.compile(rule.rule, rule.flags);
+                matcher = pattern.matcher(result);
+                if (matcher.find()) {
+                    result = matcher.replaceFirst(rule.replacement);
+                    return result;
                 }
             }
 
