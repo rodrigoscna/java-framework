@@ -134,32 +134,32 @@ public class InflectorTest extends TestCase {
         inflect.acronym("RoR");
         inflect.acronym("SSL");
 
-        // camelize, underscore, humanize, titleize
         String[][] testCases = {
-                {"API", "api", "API", "API"},
-                {"APIController", "api_controller", "API controller", "API Controller"},
-                {"Nokogiri::HTML", "nokogiri/html", "Nokogiri/HTML", "Nokogiri/HTML"},
-                {"HTTPAPI", "http_api", "HTTP API", "HTTP API"},
-                {"HTTP::Get", "http/get", "HTTP/get", "HTTP/Get"},
-                {"SSLError", "ssl_error", "SSL error", "SSL Error"},
-                {"RESTful", "restful", "RESTful", "RESTful"},
+                //camelize,            underscore,           humanize,             titleize
+                {"API",               "api",                "API",                "API"},
+                {"APIController",     "api_controller",     "API controller",     "API Controller"},
+                {"nokogiri.HTML",     "nokogiri/html",      "Nokogiri/HTML",      "Nokogiri/HTML"},
+                {"HTTPAPI",           "http_api",           "HTTP API",           "HTTP API"},
+                {"http.Get",          "http/get",           "HTTP/get",           "HTTP/Get"},
+                {"SSLError",          "ssl_error",          "SSL error",          "SSL Error"},
+                {"RESTful",           "restful",            "RESTful",            "RESTful"},
                 {"RESTfulController", "restful_controller", "RESTful controller", "RESTful Controller"},
-                {"Nested::RESTful", "nested/restful", "Nested/RESTful", "Nested/RESTful"},
-                {"IHeartW3C", "i_heart_w3c", "I heart W3C", "I Heart W3C"},
-                {"PhDRequired", "phd_required", "PhD required", "PhD Required"},
-                {"IRoRU", "i_ror_u", "I RoR u", "I RoR U"},
-                {"RESTfulHTTPAPI", "restful_http_api", "RESTful HTTP API", "RESTful HTTP API"},
-                {"HTTP::RESTful", "http/restful", "HTTP/RESTful", "HTTP/RESTful"},
-                {"HTTP::RESTfulAPI", "http/restful_api", "HTTP/RESTful API", "HTTP/RESTful API"},
-                {"APIRESTful", "api_restful", "API RESTful", "API RESTful"},
+                {"nested.RESTful",    "nested/restful",     "Nested/RESTful",     "Nested/RESTful"},
+                {"IHeartW3C",         "i_heart_w3c",        "I heart W3C",        "I Heart W3C"},
+                {"PhDRequired",       "phd_required",       "PhD required",       "PhD Required"},
+                {"IRoRU",             "i_ror_u",            "I RoR u",            "I RoR U"},
+                {"RESTfulHTTPAPI",    "restful_http_api",   "RESTful HTTP API",   "RESTful HTTP API"},
+                {"http.RESTful",      "http/restful",       "HTTP/RESTful",       "HTTP/RESTful"},
+                {"http.RESTfulAPI",   "http/restful_api",   "HTTP/RESTful API",   "HTTP/RESTful API"},
+                {"APIRESTful",        "api_restful",        "API RESTful",        "API RESTful"},
 
-                // Misdirection
-                {"Capistrano", "capistrano", "Capistrano", "Capistrano"},
-                {"CapiController", "capi_controller", "Capi controller", "Capi Controller"},
-                {"HttpsApis", "https_apis", "Https apis", "Https Apis"},
-                {"Html5", "html5", "Html5", "Html5"},
-                {"Restfully", "restfully", "Restfully", "Restfully"},
-                {"RoRails", "ro_rails", "Ro rails", "Ro Rails"},
+                //misdirection
+                {"Capistrano",        "capistrano",         "Capistrano",         "Capistrano"},
+                {"CapiController",    "capi_controller",    "Capi controller",    "Capi Controller"},
+                {"HttpsApis",         "https_apis",         "Https apis",         "Https Apis"},
+                {"Html5",             "html5",              "Html5",              "Html5"},
+                {"Restfully",         "restfully",          "Restfully",          "Restfully"},
+                {"RoRails",           "ro_rails",           "Ro rails",           "Ro Rails"}
         };
 
         for (String[] testCase : testCases) {
