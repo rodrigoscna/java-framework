@@ -322,6 +322,15 @@ public class InflectorTest extends TestCase {
         }
     }
 
+    public void testParameterizeWithNoSeparator() {
+        for (int i = 0; i < InflectorTestCases.STRING_TO_PARAMETERIZED_WITH_NO_SEPARATOR.length; i++) {
+            String someString = InflectorTestCases.STRING_TO_PARAMETERIZED_WITH_NO_SEPARATOR[i][0];
+            String parameterizedString = InflectorTestCases.STRING_TO_PARAMETERIZED_WITH_NO_SEPARATOR[i][1];
+
+            assertEquals(parameterizedString, Inflector.parameterize(someString, ""));
+        }
+    }
+
     public void testClassify() {
         for (int i = 0; i < InflectorTestCases.CLASS_NAME_TO_TABLE_NAME.length; i++) {
             String className = InflectorTestCases.CLASS_NAME_TO_TABLE_NAME[i][0];
