@@ -388,8 +388,8 @@ public class Inflector {
      * @param number The number to be converted.
      * @return The ordinal suffix for the number.
      */
-    public static String ordinal(String number) {
-        throw new UnsupportedOperationException("Not implemented yet: " + number);
+    public static String ordinal(Number number) {
+        return ordinal(String.valueOf(number));
     }
 
     /**
@@ -407,8 +407,23 @@ public class Inflector {
      * @param number The number to be converted.
      * @return The ordinal suffix for the number.
      */
-    public static String ordinal(Number number) {
-        return ordinal(String.valueOf(number));
+    public static String ordinal(String number) {
+        int absNumber = Math.abs(Integer.parseInt(number));
+
+        if (absNumber % 100 >= 11 && absNumber % 100 <= 13) {
+            return "th";
+        } else {
+            switch (absNumber % 10) {
+                case 1:
+                    return "st";
+                case 2:
+                    return "nd";
+                case 3:
+                    return "rd";
+                default:
+                    return "th";
+            }
+        }
     }
 
     /**
