@@ -381,11 +381,41 @@ public class InflectorTest extends TestCase {
     }
 
     public void testConstantize() {
-        throw new UnsupportedOperationException("Not implemented yet.");
+        for (Object[] existingConstant : ConstantizeTestCases.EXISTING_CONSTANTS) {
+            String path = ConstantizeTestCases.CONSTANTIZE_BASE_PACKAGE + String.valueOf(existingConstant[0]);
+            Class constant = (Class) existingConstant[1];
+
+            try {
+                assertEquals(constant.getCanonicalName(), Inflector.constantize(path).getCanonicalName());
+            } catch (ClassNotFoundException clNoFoEx) {
+                fail(clNoFoEx.getMessage());
+            }
+        }
+
+        for (String unknownConstant : ConstantizeTestCases.UNKNOWN_CONSTANTS) {
+            String path = ConstantizeTestCases.CONSTANTIZE_BASE_PACKAGE + unknownConstant;
+
+            try {
+                Inflector.constantize(path);
+                fail("Should have thrown a ClassNotFoundException");
+            } catch (ClassNotFoundException ignore) {
+            }
+        }
     }
 
     public void testSafeConstantize() {
-        throw new UnsupportedOperationException("Not implemented yet.");
+        for (Object[] existingConstant : ConstantizeTestCases.EXISTING_CONSTANTS) {
+            String path = ConstantizeTestCases.CONSTANTIZE_BASE_PACKAGE + String.valueOf(existingConstant[0]);
+            Class constant = (Class) existingConstant[1];
+
+            assertEquals(constant.getCanonicalName(), Inflector.safeConstantize(path).getCanonicalName());
+        }
+
+        for (String unknownConstant : ConstantizeTestCases.UNKNOWN_CONSTANTS) {
+            String path = ConstantizeTestCases.CONSTANTIZE_BASE_PACKAGE + unknownConstant;
+
+            assertNull(Inflector.safeConstantize(path));
+        }
     }
 
     public void testOrdinal() {
