@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 import tech.arauk.ark.activesupport.annotations.Beta;
 import tech.arauk.ark.activesupport.core_ext.StringUtils;
 import tech.arauk.ark.activesupport.inflector.Inflections;
+import tech.arauk.ark.activesupport.inflector.Transliterator;
 
 /**
  * The Inflector transforms words from singular to plural, class names to table
@@ -107,7 +108,7 @@ public class Inflector {
             }
         }
 
-        pattern = Pattern.compile("(?:_|(\\/))([a-z\\d]*)", Pattern.CASE_INSENSITIVE);
+        pattern = Pattern.compile("(?:_|(/))([a-z\\d]*)", Pattern.CASE_INSENSITIVE);
         matcher = pattern.matcher(camelizedString);
         while (matcher.find()) {
             String match1 = matcher.group(1) != null ? matcher.group(1) : "";
@@ -452,30 +453,60 @@ public class Inflector {
      * Replaces special characters in a string so that it may be used as part of
      * a "pretty" URL.
      * <pre>{@code
-     * Inflector.parameterize("Donald E. Knuth") == "donald-e-knuth"
      * Inflector.parameterize("^trés|Jolie-- ") == "tres-jolie"
      * }</pre>
      *
-     * @param string The string to be parameterized.
+     * @param string       The string to be parameterized.
      * @return A new string without special characters.
      */
-    public static String parameterize(String string, String separator) {
-        throw new UnsupportedOperationException("Not implemented yet: " + string + " - " + separator);
+    public static String parameterize(String string) {
+        return parameterize(string, "-", false);
     }
 
     /**
      * Replaces special characters in a string so that it may be used as part of
      * a "pretty" URL.
      * <pre>{@code
-     * Inflector.parameterize("Donald E. Knuth") == "donald-e-knuth"
-     * Inflector.parameterize("^trés|Jolie-- ") == "tres-jolie"
+     * Inflector.parameterize("^trés|Jolie-- ", "_") == "tres_jolie"
      * }</pre>
      *
-     * @param string The string to be parameterized.
+     * @param string       The string to be parameterized.
+     * @param separator    The separator to be used.
      * @return A new string without special characters.
      */
-    public static String parameterize(String string) {
-        throw new UnsupportedOperationException("Not implemented yet: " + string);
+    public static String parameterize(String string, String separator) {
+        return parameterize(string, separator, false);
+    }
+
+    /**
+     * Replaces special characters in a string so that it may be used as part of
+     * a "pretty" URL.
+     * <pre>{@code
+     * Inflector.parameterize("^trés|Jolie-- ", true) == "tres-Jolie"
+     * }</pre>
+     *
+     * @param string       The string to be parameterized.
+     * @param preserveCase Wheter or not to preserve the case of the characters.
+     * @return A new string without special characters.
+     */
+    public static String parameterize(String string, boolean preserveCase) {
+        return parameterize(string, "-", preserveCase);
+    }
+
+    /**
+     * Replaces special characters in a string so that it may be used as part of
+     * a "pretty" URL.
+     * <pre>{@code
+     * Inflector.parameterize("^trés|Jolie-- ", "_", true) == "tres_Jolie"
+     * }</pre>
+     *
+     * @param string       The string to be parameterized.
+     * @param separator    The separator to be used.
+     * @param preserveCase Wheter or not to preserve the case of the characters.
+     * @return A new string without special characters.
+     */
+    public static String parameterize(String string, String separator, boolean preserveCase) {
+        return Transliterator.parameterize(string, separator, preserveCase);
     }
 
     /**
