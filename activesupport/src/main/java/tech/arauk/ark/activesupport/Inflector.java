@@ -269,7 +269,18 @@ public class Inflector {
      * @return A new string with the foreign key name.
      */
     public static String foreignKey(String className, boolean separateClassNameAndIdWithUnderscore) {
-        throw new UnsupportedOperationException("Not implemented yet: " + className + " - " + separateClassNameAndIdWithUnderscore);
+        String foreignKey = className;
+
+        foreignKey = demodulize(foreignKey);
+        foreignKey = underscore(foreignKey);
+
+        if (separateClassNameAndIdWithUnderscore) {
+            foreignKey = foreignKey + "_";
+        }
+
+        foreignKey = foreignKey + "id";
+
+        return foreignKey;
     }
 
     /**
