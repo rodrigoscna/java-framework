@@ -243,21 +243,21 @@ public class InflectorTest extends TestCase {
     }
 
     public void testDemodulize() {
-        assertEquals("Account", Inflector.demodulize("MyApplication::Billing::Account"));
+        assertEquals("Account", Inflector.demodulize("my_application.billing.Account"));
         assertEquals("Account", Inflector.demodulize("Account"));
-        assertEquals("Account", Inflector.demodulize("::Account"));
+        assertEquals("Account", Inflector.demodulize(".Account"));
         assertEquals("", Inflector.demodulize(""));
     }
 
     public void testDeconstantize() {
-        assertEquals("MyApplication::Billing", Inflector.deconstantize("MyApplication::Billing::Account"));
-        assertEquals("::MyApplication::Billing", Inflector.deconstantize("::MyApplication::Billing::Account"));
+        assertEquals("my_application.Billing", Inflector.deconstantize("my_application.billing.Account"));
+        assertEquals(".my_application.Billing", Inflector.deconstantize(".my_application.billing.Account"));
 
-        assertEquals("MyApplication", Inflector.deconstantize("MyApplication::Billing"));
-        assertEquals("::MyApplication", Inflector.deconstantize("::MyApplication::Billing"));
+        assertEquals("my_application", Inflector.deconstantize("my_application.Billing"));
+        assertEquals(".my_application", Inflector.deconstantize(".my_application.Billing"));
 
         assertEquals("", Inflector.deconstantize("Account"));
-        assertEquals("", Inflector.deconstantize("::Account"));
+        assertEquals("", Inflector.deconstantize(".Account"));
         assertEquals("", Inflector.deconstantize(""));
     }
 
