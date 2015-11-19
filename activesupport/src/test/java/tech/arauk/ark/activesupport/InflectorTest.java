@@ -250,8 +250,8 @@ public class InflectorTest extends TestCase {
     }
 
     public void testDeconstantize() {
-        assertEquals("my_application.Billing", Inflector.deconstantize("my_application.billing.Account"));
-        assertEquals(".my_application.Billing", Inflector.deconstantize(".my_application.billing.Account"));
+        assertEquals("my_application.billing", Inflector.deconstantize("my_application.billing.Account"));
+        assertEquals(".my_application.billing", Inflector.deconstantize(".my_application.billing.Account"));
 
         assertEquals("my_application", Inflector.deconstantize("my_application.Billing"));
         assertEquals(".my_application", Inflector.deconstantize(".my_application.Billing"));
