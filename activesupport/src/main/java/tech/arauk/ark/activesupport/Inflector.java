@@ -157,7 +157,13 @@ public class Inflector {
      * @return A new class name string.
      */
     public static String classify(String tableName) {
-        throw new UnsupportedOperationException("Not implemented yet: " + tableName);
+        String classified = tableName;
+
+        classified = classified.replaceFirst(".*\\.", "");
+        classified = singularize(classified);
+        classified = camelize(classified);
+
+        return classified;
     }
 
     /**
