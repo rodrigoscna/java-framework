@@ -68,8 +68,6 @@ public class Transliterator {
 
         String transliterated = string;
 
-        transliterated = Normalizer.normalize(transliterated, Normalizer.Form.NFKD);
-
         Pattern pattern;
         Matcher matcher;
 
