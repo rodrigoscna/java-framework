@@ -152,14 +152,13 @@ public class StringUtils {
      * StringUtils.constantize("com.example.blargle") throws IllegalArgumentException: wrong constant name blargle
      * }</pre>
      *
-     * @param camelizedWord The camel case term that references the class.
+     * @param camelCasedWord The camel case term that references the class.
      * @return A Class as specified in the string.
-     * @throws IllegalArgumentException Is thrown when the name is not in
-     *                                  CamelCase or the constant is unknown.
+     * @throws ClassNotFoundException Is thrown when the constant is unknown.
      * @see tech.arauk.ark.activesupport.Inflector#constantize(String)
      */
-    public static Class constantize(String camelizedWord) throws IllegalArgumentException {
-        return Inflector.constantize(camelizedWord);
+    public static Class constantize(String camelCasedWord) throws ClassNotFoundException {
+        return Inflector.constantize(camelCasedWord);
     }
 
     /**

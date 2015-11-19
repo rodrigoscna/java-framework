@@ -174,13 +174,37 @@ public class Inflector {
      * The name is assumed to be composed of the full package name plus the
      * class name.
      *
-     * @param camelizedWord The camel case term that references the class.
+     * @param camelCasedWord The camel case term that references the class.
      * @return A Class as specified in the string.
-     * @throws IllegalArgumentException Is thrown when the name is not in
-     *                                  CamelCase or the constant is unknown.
+     * @throws ClassNotFoundException Is thrown when the constant is unknown.
      */
-    public static Class constantize(String camelizedWord) throws IllegalArgumentException {
-        throw new UnsupportedOperationException("Not implemented yet: " + camelizedWord);
+    public static Class constantize(String camelCasedWord) throws ClassNotFoundException {
+        String constantized = camelCasedWord;
+
+        Pattern duplicateSeparator;
+        Pattern leadingTrailingSeparator;
+        Matcher matcher;
+
+        duplicateSeparator = Pattern.compile("\\.{2,}");
+        leadingTrailingSeparator = Pattern.compile("^\\.|\\.$", Pattern.CASE_INSENSITIVE);
+
+        // No more than one of the separator in a row.
+        matcher = duplicateSeparator.matcher(constantized);
+        if (matcher.find()) {
+            constantized = matcher.replaceAll("\\.");
+        }
+
+        // Remove leading/trailing separator.
+        matcher = leadingTrailingSeparator.matcher(constantized);
+        if (matcher.find()) {
+            constantized = matcher.replaceAll("");
+        }
+
+        try {
+            return Class.forName(constantized);
+        } catch (NoClassDefFoundError noClDeFoEr) {
+            throw new ClassNotFoundException(constantized, noClDeFoEr);
+        }
     }
 
     /**
