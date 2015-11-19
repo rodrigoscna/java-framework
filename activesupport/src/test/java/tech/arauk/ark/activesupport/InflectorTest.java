@@ -365,8 +365,8 @@ public class InflectorTest extends TestCase {
 
     public void testHumanizeByRule() {
         Inflections inflect = Inflector.inflections();
-        inflect.human("_cnt$", "$1_count");
-        inflect.human("^prefx_", "$1");
+        inflect.human("_cnt$", "_count");
+        inflect.human("^prefx_", "");
 
         assertEquals("Jargon count", Inflector.humanize("jargon_cnt"));
         assertEquals("Request", Inflector.humanize("prefx_request"));
