@@ -209,7 +209,14 @@ public class Inflector {
      * @see #demodulize(String)
      */
     public static String deconstantize(String path) {
-        throw new UnsupportedOperationException("Not implemented yet: " + path);
+        String deconstantized = path;
+
+        int index = deconstantized.lastIndexOf(".");
+        index = index > 0 ? index : 0;
+
+        deconstantized = deconstantized.substring(0, index);
+
+        return deconstantized;
     }
 
     /**
