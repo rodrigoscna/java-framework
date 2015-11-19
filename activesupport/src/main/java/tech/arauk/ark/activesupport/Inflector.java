@@ -186,7 +186,7 @@ public class Inflector {
      * @return A new string with dashes instead of underscores.
      */
     public static String dasherize(String underscoredWord) {
-        throw new UnsupportedOperationException("Not implemented yet: " + underscoredWord);
+        return underscoredWord.replaceAll("_", "-");
     }
 
     /**
