@@ -5,7 +5,6 @@ allprojects {
 }
 
 dependencies {
-    compile project(":actionpack")
     compile project(":actionrequest")
     compile project(":activemodel")
     compile project(":activerecord")
