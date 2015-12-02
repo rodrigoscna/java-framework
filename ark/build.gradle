@@ -1,18 +1,24 @@
-apply plugin: "java"
+group "tech.arauk"
+version "1.0-SNAPSHOT"
 
-allprojects {
-    sourceCompatibility = JavaVersion.VERSION_1_7
-}
+apply plugin: "java"
 
 dependencies {
     compile project(":actionrequest")
     compile project(":activemodel")
     compile project(":activerecord")
+    compile project(":activerecord_rest_adapter")
     compile project(":activesupport")
     compile project(":arel")
 
-    testCompile "junit:junit:4.12"
+    testCompile group: "junit", name: "junit", version: "4.12"
 }
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.7
 
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"

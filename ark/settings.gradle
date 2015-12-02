@@ -1,0 +1,15 @@
+rootProject.name = "ark"
+
+include ":actionrequest"
+include ":activemodel"
+include ":activerecord"
+include ":activerecord_rest_adapter"
+include ":activesupport"
+include ":arel"
+
+project(":actionrequest").projectDir = file("../actionrequest")
+project(":activemodel").projectDir = file("../activemodel")
+project(":activerecord").projectDir = file("../activerecord")
+project(":activerecord_rest_adapter").projectDir = file("../activerecord_rest_adapter")
+project(":activesupport").projectDir = file("../activesupport")
+project(":arel").projectDir = file("../arel")
