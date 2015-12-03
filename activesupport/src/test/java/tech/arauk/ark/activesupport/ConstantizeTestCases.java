@@ -6,7 +6,7 @@ import tech.arauk.ark.activesupport.ace.base.*;
 /**
  * A collection of test cases for the inflection methods.
  *
- * @author Rodrigo Scomasson do Nascimento <rodrigo.sc.na@gmail.com>
+ * @author Rodrigo Scomazzon do Nascimento <rodrigo.sc.na@gmail.com>
  */
 public class ConstantizeTestCases {
     public static String CONSTANTIZE_BASE_PACKAGE = "tech.arauk.ark.activesupport.";

@@ -10,7 +10,7 @@ import tech.arauk.ark.activesupport.annotations.Beta;
  * during development. Debug logs are compiled in but stripped at runtime.
  * Error, warning and info logs are always kept.
  *
- * @author Rodrigo Scomasson do Nascimento <rodrigo.sc.na@gmail.com>
+ * @author Rodrigo Scomazzon do Nascimento <rodrigo.sc.na@gmail.com>
  */
 @Beta
 public class Logger {

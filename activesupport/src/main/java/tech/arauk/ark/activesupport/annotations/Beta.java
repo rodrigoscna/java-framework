@@ -19,7 +19,7 @@ import java.lang.annotation.Target;
  * for <i>libraries</i> (which get included on users' CLASSPATHs, outside the
  * library developers' control) to do so.
  *
- * @author Rodrigo Scomasson do Nascimento <rodrigo.sc.na@gmail.com>
+ * @author Rodrigo Scomazzon do Nascimento <rodrigo.sc.na@gmail.com>
  */
 @Beta
 @Documented

@@ -23,7 +23,7 @@ import tech.arauk.ark.activesupport.inflector.Transliterator;
  * require it for your application or wish to define rules for languages other
  * than English, please correct or add them yourself (explained below).
  *
- * @author Rodrigo Scomasson do Nascimento <rodrigo.sc.na@gmail.com>
+ * @author Rodrigo Scomazzon do Nascimento <rodrigo.sc.na@gmail.com>
  */
 @Beta
 public class Inflector {

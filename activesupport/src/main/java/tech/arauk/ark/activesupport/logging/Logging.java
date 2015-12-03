@@ -10,7 +10,7 @@ import tech.arauk.ark.activesupport.annotations.Beta;
  * {@link tech.arauk.ark.activesupport.logging.Logger#setLogger(Logging)}
  * wrapper.
  *
- * @author Rodrigo Scomasson do Nascimento <rodrigo.sc.na@gmail.com>
+ * @author Rodrigo Scomazzon do Nascimento <rodrigo.sc.na@gmail.com>
  */
 @Beta
 public interface Logging {

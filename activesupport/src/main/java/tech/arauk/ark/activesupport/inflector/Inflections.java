@@ -28,7 +28,7 @@ import tech.arauk.ark.activesupport.core_ext.StringUtils;
  * rules that is runs. This guarantees that your rules run before any of the
  * rules that may already have been loaded.
  *
- * @author Rodrigo Scomasson do Nascimento <rodrigo.sc.na@gmail.com>
+ * @author Rodrigo Scomazzon do Nascimento <rodrigo.sc.na@gmail.com>
  */
 @Beta
 public class Inflections {

@@ -3,7 +3,7 @@ package tech.arauk.ark.activesupport;
 /**
  * A collection of test cases for the inflection methods.
  *
- * @author Rodrigo Scomasson do Nascimento <rodrigo.sc.na@gmail.com>
+ * @author Rodrigo Scomazzon do Nascimento <rodrigo.sc.na@gmail.com>
  */
 public class InflectorTestCases {
     public static String[][] SINGULAR_TO_PLURAL = {

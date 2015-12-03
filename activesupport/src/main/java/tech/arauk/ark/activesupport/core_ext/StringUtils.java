@@ -7,7 +7,7 @@ import tech.arauk.ark.activesupport.Inflector;
 import tech.arauk.ark.activesupport.annotations.Beta;
 
 /**
- * @author Rodrigo Scomasson do Nascimento <rodrigo.sc.na@gmail.com>
+ * @author Rodrigo Scomazzon do Nascimento <rodrigo.sc.na@gmail.com>
  */
 @Beta
 public class StringUtils {

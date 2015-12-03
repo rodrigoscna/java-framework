@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 /**
  * Helper class for transliteration related inflections.
  *
- * @author Rodrigo Scomasson do Nascimento <rodrigo.sc.na@gmail.com>
+ * @author Rodrigo Scomazzon do Nascimento <rodrigo.sc.na@gmail.com>
  */
 public class Transliterator {
     private static final String sDefaultReplacementChar = "?";

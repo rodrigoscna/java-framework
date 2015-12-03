@@ -10,7 +10,7 @@ import tech.arauk.ark.activesupport.annotations.Beta;
 /**
  * An abstract class to expose a standardized database connection API.
  *
- * @author Rodrigo Scomasson do Nascimento <rodrigo.sc.na@gmail.com>
+ * @author Rodrigo Scomazzon do Nascimento <rodrigo.sc.na@gmail.com>
  */
 @Beta
 public abstract class AbstractAdapter {

@@ -6,7 +6,7 @@ import tech.arauk.ark.activesupport.core_ext.StringUtils;
 /**
  * Abstract representation of the ActiveSupport module.
  *
- * @author Rodrigo Scomasson do Nascimento <rodrigo.sc.na@gmail.com>
+ * @author Rodrigo Scomazzon do Nascimento <rodrigo.sc.na@gmail.com>
  */
 @Beta
 public abstract class ActiveSupport {

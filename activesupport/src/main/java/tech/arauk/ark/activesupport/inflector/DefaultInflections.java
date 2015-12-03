@@ -8,7 +8,7 @@ import tech.arauk.ark.activesupport.annotations.Beta;
 /**
  * Default set of inflections for the English (US) language.
  *
- * @author Rodrigo Scomasson do Nascimento <rodrigo.sc.na@gmail.com>
+ * @author Rodrigo Scomazzon do Nascimento <rodrigo.sc.na@gmail.com>
  */
 @Beta
 public class DefaultInflections {
