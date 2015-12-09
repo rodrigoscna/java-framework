@@ -65,9 +65,18 @@ public class Logger {
     }
 
     /**
+     * Checks to see whether or not the Logger is set and available.
+     *
+     * @return Whether or not the Logger is set and available.
+     */
+    public Boolean isAvailable() {
+        return mLogger != null;
+    }
+
+    /**
      * Checks to see whether or not the Logger is enabled.
      *
-     * @return Whether or not that the Logger is enabled.
+     * @return Whether or not the Logger is enabled.
      */
     public Boolean isEnabled() {
         return mIsEnabled;
@@ -142,7 +151,7 @@ public class Logger {
      * @param throwable An exception to log.
      */
     public void debug(String tag, String message, Throwable throwable) {
-        if (isEnabled()) {
+        if (isAvailable() && isEnabled()) {
             mLogger.debug(tag, message, throwable);
         }
     }
@@ -184,7 +193,7 @@ public class Logger {
      * @param throwable An exception to log.
      */
     public void error(String tag, String message, Throwable throwable) {
-        if (isEnabled()) {
+        if (isAvailable() && isEnabled()) {
             mLogger.error(tag, message, throwable);
         }
     }
@@ -226,7 +235,7 @@ public class Logger {
      * @param throwable An exception to log.
      */
     public void info(String tag, String message, Throwable throwable) {
-        if (isEnabled()) {
+        if (isAvailable() && isEnabled()) {
             mLogger.info(tag, message, throwable);
         }
     }
@@ -268,7 +277,7 @@ public class Logger {
      * @param throwable An exception to log.
      */
     public void verbose(String tag, String message, Throwable throwable) {
-        if (isEnabled()) {
+        if (isAvailable() && isEnabled()) {
             mLogger.verbose(tag, message, throwable);
         }
     }
@@ -310,7 +319,7 @@ public class Logger {
      * @param throwable An exception to log.
      */
     public void warn(String tag, String message, Throwable throwable) {
-        if (isEnabled()) {
+        if (isAvailable() && isEnabled()) {
             mLogger.warn(tag, message, throwable);
         }
     }
