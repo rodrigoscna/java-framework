@@ -5,3 +5,6 @@ jdk:
   - openjdk7
 before_install:
   - chmod +x gradlew
+notifications:
+  slack:
+    secure: kdFZKjgQeSmp/IzQzRhdZ1sev1DwPr569RlIih37VKrBReJIb6MGB6RoGfCaQZ7vKlHLnBbYQnzFgLmLdEj5VYpuafhfniuyqDaOFx8o8SGMKwY+H07ltj7bXiBxHnTB7Ys70n+gvhqZGT7qVPOITEwm9TDAieri1Jns3bd3Udo=
