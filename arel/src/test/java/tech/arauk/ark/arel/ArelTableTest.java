@@ -2,6 +2,7 @@ package tech.arauk.ark.arel;
 
 import junit.framework.TestCase;
 import tech.arauk.ark.arel.nodes.ArelNodeInnerJoin;
+import tech.arauk.ark.arel.nodes.ArelNodeRightOuterJoin;
 import tech.arauk.ark.arel.nodes.ArelNodeStringJoin;
 
 public class ArelTableTest extends TestCase {
@@ -32,5 +33,13 @@ public class ArelTableTest extends TestCase {
         assertSame(join.getClass(), ArelNodeInnerJoin.class);
         assertEquals("foo", ((ArelNodeInnerJoin) join).left);
         assertEquals("bar", ((ArelNodeInnerJoin) join).right);
+    }
+
+    public void testCreateJoinNodesWithAKlass() {
+        Object join = mRelation.createJoin("foo", "bar", ArelNodeRightOuterJoin.class);
+
+        assertSame(join.getClass(), ArelNodeRightOuterJoin.class);
+        assertEquals("foo", ((ArelNodeRightOuterJoin) join).left);
+        assertEquals("bar", ((ArelNodeRightOuterJoin) join).right);
     }
 }
