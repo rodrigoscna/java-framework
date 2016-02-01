@@ -2,9 +2,14 @@ package tech.arauk.ark.arel;
 
 import junit.framework.TestCase;
 import tech.arauk.ark.arel.nodes.*;
+import tech.arauk.ark.arel.support.FakeRecord;
 
 public class ArelTableTest extends TestCase {
     private ArelTable mRelation;
+
+    static {
+        ArelTable.engine = new FakeRecord.Base();
+    }
 
     @Override
     protected void setUp() throws Exception {
@@ -55,5 +60,13 @@ public class ArelTableTest extends TestCase {
         assertSame(join.getClass(), ArelNodeRightOuterJoin.class);
         assertEquals("foo", ((ArelNodeRightOuterJoin) join).left);
         assertEquals("bar", ((ArelNodeRightOuterJoin) join).right);
+    }
+
+    public void testInsertManager() {
+        Object insertManager = mRelation.compileInsert("VALUES(NULL)");
+
+        assertSame(insertManager.getClass(), ArelInsertManager.class);
+        ((ArelInsertManager) insertManager).into(new ArelTable("users"));
+        assertEquals("INSERT INTO \"users\" VALUES(NULL)", ((ArelInsertManager) insertManager).toSQL());
     }
 }
