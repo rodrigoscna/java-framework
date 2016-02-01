@@ -48,4 +48,12 @@ public class ArelTable {
         insertManager.insert(values);
         return insertManager;
     }
+
+    public ArelSelectManager from() {
+        return new ArelSelectManager(this);
+    }
+
+    public ArelSelectManager skip(int amount) {
+        return from().skip(amount);
+    }
 }

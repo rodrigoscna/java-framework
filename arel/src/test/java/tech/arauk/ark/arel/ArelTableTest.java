@@ -69,4 +69,11 @@ public class ArelTableTest extends TestCase {
         ((ArelInsertManager) insertManager).into(new ArelTable("users"));
         assertEquals("INSERT INTO \"users\" VALUES(NULL)", ((ArelInsertManager) insertManager).toSQL());
     }
+
+    public void testSkip() {
+        Object selectManager = mRelation.skip(2);
+
+        assertSame(selectManager.getClass(), ArelSelectManager.class);
+        assertEquals("SELECT FROM \"users\" OFFSET 2", ((ArelSelectManager) selectManager).toSQL());
+    }
 }

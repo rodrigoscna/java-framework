@@ -3,8 +3,8 @@ package tech.arauk.ark.arel.nodes;
 public class ArelNodeSqlLiteral {
     private String mValue;
 
-    public ArelNodeSqlLiteral(String value) {
-        this.mValue = value;
+    public ArelNodeSqlLiteral(Object value) {
+        this.mValue = String.valueOf(value);
     }
 
     public String getValue() {
