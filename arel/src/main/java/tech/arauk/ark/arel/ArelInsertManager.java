@@ -8,8 +8,8 @@ public class ArelInsertManager extends ArelTreeManager {
         super(new ArelNodeInsertStatement());
     }
 
-    public ArelInsertManager into(ArelTable arelTable) {
-        ((ArelNodeInsertStatement) this.arelStatement).relation = arelTable;
+    public ArelInsertManager into(ArelTable table) {
+        ((ArelNodeInsertStatement) this.ast).relation = table;
         return this;
     }
 
@@ -18,6 +18,6 @@ public class ArelInsertManager extends ArelTreeManager {
             return;
         }
 
-        ((ArelNodeInsertStatement) this.arelStatement).values = new ArelNodeSqlLiteral(fields);
+        ((ArelNodeInsertStatement) this.ast).values = new ArelNodeSqlLiteral(fields);
     }
 }

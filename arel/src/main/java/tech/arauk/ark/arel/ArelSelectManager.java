@@ -12,7 +12,7 @@ public class ArelSelectManager extends ArelTreeManager {
     public ArelSelectManager() {
         super(new ArelNodeSelectStatement());
 
-        ArelNodeSelectCore[] cores = ((ArelNodeSelectStatement) this.arelStatement).cores;
+        ArelNodeSelectCore[] cores = ((ArelNodeSelectStatement) this.ast).cores;
 
         this.mCtx = cores[cores.length - 1];
     }
@@ -20,7 +20,7 @@ public class ArelSelectManager extends ArelTreeManager {
     public ArelSelectManager(Object table) {
         super(new ArelNodeSelectStatement());
 
-        ArelNodeSelectCore[] cores = ((ArelNodeSelectStatement) this.arelStatement).cores;
+        ArelNodeSelectCore[] cores = ((ArelNodeSelectStatement) this.ast).cores;
 
         this.mCtx = cores[cores.length - 1];
 
@@ -58,7 +58,7 @@ public class ArelSelectManager extends ArelTreeManager {
     }
 
     public ArelSelectManager skip(ArelNodeOffset amount) {
-        ((ArelNodeSelectStatement) this.arelStatement).offset = amount;
+        ((ArelNodeSelectStatement) this.ast).offset = amount;
         return this;
     }
 }

@@ -28,205 +28,205 @@ public class ArelVisitorToSql extends ArelVisitor {
         super(arelConnection);
     }
 
-    public ArelCollector visitArelNodeInsertStatement(Object object, ArelCollector arelCollector) {
-        ArelNodeInsertStatement arelNodeInsertStatement = (ArelNodeInsertStatement) object;
+    public ArelCollector visitArelNodeInsertStatement(Object object, ArelCollector collector) {
+        ArelNodeInsertStatement insertStatement = (ArelNodeInsertStatement) object;
 
-        arelCollector.append("INSERT INTO ");
-        arelCollector = visit(arelNodeInsertStatement.relation, arelCollector);
+        collector.append("INSERT INTO ");
+        collector = visit(insertStatement.relation, collector);
 
-        if (arelNodeInsertStatement.columns != null && !arelNodeInsertStatement.columns.isEmpty()) {
+        if (insertStatement.columns != null && !insertStatement.columns.isEmpty()) {
             List<String> quotedColumns = new ArrayList<>();
-            for (String column : arelNodeInsertStatement.columns) {
+            for (String column : insertStatement.columns) {
                 quotedColumns.add(quoteColumnName(column));
             }
-            arelCollector.append(String.format(" (%s)", ArelUtils.join(quotedColumns, ", ")));
+            collector.append(String.format(" (%s)", ArelUtils.join(quotedColumns, ", ")));
         }
 
-        if (arelNodeInsertStatement.values != null) {
-            return maybeVisit(arelNodeInsertStatement.values, arelCollector);
-        } else if (arelNodeInsertStatement.select != null) {
-            return maybeVisit(arelNodeInsertStatement.select, arelCollector);
+        if (insertStatement.values != null) {
+            return maybeVisit(insertStatement.values, collector);
+        } else if (insertStatement.select != null) {
+            return maybeVisit(insertStatement.select, collector);
         } else {
-            return arelCollector;
+            return collector;
         }
     }
 
-    public ArelCollector visitArelNodeJoinSource(Object object, ArelCollector arelCollector) {
-        ArelNodeJoinSource arelNodeJoinSource = (ArelNodeJoinSource) object;
+    public ArelCollector visitArelNodeJoinSource(Object object, ArelCollector collector) {
+        ArelNodeJoinSource joinSource = (ArelNodeJoinSource) object;
 
-        if (arelNodeJoinSource.left != null) {
-            arelCollector = visit(arelNodeJoinSource.left, arelCollector);
+        if (joinSource.left != null) {
+            collector = visit(joinSource.left, collector);
         }
 
-        if (arelNodeJoinSource.right != null && arelNodeJoinSource.right.size() > 0) {
-            if (arelNodeJoinSource.left != null) {
-                arelCollector.append(SPACE);
+        if (joinSource.right != null && joinSource.right.size() > 0) {
+            if (joinSource.left != null) {
+                collector.append(SPACE);
             }
-            arelCollector = injectJoin(arelNodeJoinSource.right, arelCollector, SPACE);
+            collector = injectJoin(joinSource.right, collector, SPACE);
         }
 
-        return arelCollector;
+        return collector;
     }
 
-    public ArelCollector visitArelNodeOffset(Object object, ArelCollector arelCollector) {
-        ArelNodeOffset arelNodeOffset = (ArelNodeOffset) object;
+    public ArelCollector visitArelNodeOffset(Object object, ArelCollector collector) {
+        ArelNodeOffset offset = (ArelNodeOffset) object;
 
-        arelCollector.append(OFFSET);
+        collector.append(OFFSET);
 
-        if (arelNodeOffset.expr != null) {
-            arelCollector = visit(arelNodeOffset.expr, arelCollector);
+        if (offset.expr != null) {
+            collector = visit(offset.expr, collector);
         }
 
-        return arelCollector;
+        return collector;
     }
 
-    public ArelCollector visitArelNodeSelectStatement(Object object, ArelCollector arelCollector) {
-        ArelNodeSelectStatement arelNodeSelectStatement = (ArelNodeSelectStatement) object;
+    public ArelCollector visitArelNodeSelectStatement(Object object, ArelCollector collector) {
+        ArelNodeSelectStatement selectStatement = (ArelNodeSelectStatement) object;
 
-        if (arelNodeSelectStatement.with != null) {
-            arelCollector = visit(arelNodeSelectStatement.with, arelCollector);
-            arelCollector.append(SPACE);
+        if (selectStatement.with != null) {
+            collector = visit(selectStatement.with, collector);
+            collector.append(SPACE);
         }
 
-        for (ArelNodeSelectCore arelNodeSelectCore : arelNodeSelectStatement.cores) {
-            arelCollector = visitArelNodeSelectCore(arelNodeSelectCore, arelCollector);
+        for (ArelNodeSelectCore selectCore : selectStatement.cores) {
+            collector = visitArelNodeSelectCore(selectCore, collector);
         }
 
-        if (arelNodeSelectStatement.orders != null && arelNodeSelectStatement.orders.length > 0) {
-            arelCollector.append(ORDER_BY);
+        if (selectStatement.orders != null && selectStatement.orders.length > 0) {
+            collector.append(ORDER_BY);
 
-            int len = arelNodeSelectStatement.orders.length - 1;
+            int len = selectStatement.orders.length - 1;
 
-            for (int i = 0; i < arelNodeSelectStatement.orders.length; i++) {
-                arelCollector = visit(arelNodeSelectStatement.orders[i], arelCollector);
+            for (int i = 0; i < selectStatement.orders.length; i++) {
+                collector = visit(selectStatement.orders[i], collector);
                 if (len != i) {
-                    arelCollector.append(COMMA);
+                    collector.append(COMMA);
                 }
             }
         }
 
-        arelCollector = visitArelNodeSelectOptions(object, arelCollector);
+        collector = visitArelNodeSelectOptions(object, collector);
 
-        return arelCollector;
+        return collector;
     }
 
-    public ArelCollector visitArelNodeSelectCore(Object object, ArelCollector arelCollector) {
-        ArelNodeSelectCore arelNodeSelectCore = (ArelNodeSelectCore) object;
+    public ArelCollector visitArelNodeSelectCore(Object object, ArelCollector collector) {
+        ArelNodeSelectCore selectCore = (ArelNodeSelectCore) object;
 
-        arelCollector.append("SELECT");
+        collector.append("SELECT");
 
-        arelCollector = maybeVisit(arelNodeSelectCore.top, arelCollector);
+        collector = maybeVisit(selectCore.top, collector);
 
-        arelCollector = maybeVisit(arelNodeSelectCore.setQuantifier, arelCollector);
+        collector = maybeVisit(selectCore.setQuantifier, collector);
 
-        if (arelNodeSelectCore.projections != null && arelNodeSelectCore.projections.length > 0) {
-            arelCollector.append(SPACE);
+        if (selectCore.projections != null && selectCore.projections.length > 0) {
+            collector.append(SPACE);
 
-            int len = arelNodeSelectCore.projections.length - 1;
+            int len = selectCore.projections.length - 1;
 
-            for (int i = 0; i < arelNodeSelectCore.projections.length; i++) {
-                arelCollector = visit(arelNodeSelectCore.projections[i], arelCollector);
+            for (int i = 0; i < selectCore.projections.length; i++) {
+                collector = visit(selectCore.projections[i], collector);
                 if (len != i) {
-                    arelCollector.append(COMMA);
+                    collector.append(COMMA);
                 }
             }
         }
 
-        if (arelNodeSelectCore.source != null) {
-            arelCollector.append(" FROM ");
-            arelCollector = visit(arelNodeSelectCore.source, arelCollector);
+        if (selectCore.source != null) {
+            collector.append(" FROM ");
+            collector = visit(selectCore.source, collector);
         }
 
-        if (arelNodeSelectCore.wheres != null && arelNodeSelectCore.wheres.length > 0) {
-            arelCollector.append(WHERE);
+        if (selectCore.wheres != null && selectCore.wheres.length > 0) {
+            collector.append(WHERE);
 
-            int len = arelNodeSelectCore.wheres.length - 1;
+            int len = selectCore.wheres.length - 1;
 
-            for (int i = 0; i < arelNodeSelectCore.wheres.length; i++) {
-                arelCollector = visit(arelNodeSelectCore.wheres[i], arelCollector);
+            for (int i = 0; i < selectCore.wheres.length; i++) {
+                collector = visit(selectCore.wheres[i], collector);
                 if (len != i) {
-                    arelCollector.append(AND);
+                    collector.append(AND);
                 }
             }
         }
 
-        if (arelNodeSelectCore.groups != null && arelNodeSelectCore.groups.length > 0) {
-            arelCollector.append(GROUP_BY);
+        if (selectCore.groups != null && selectCore.groups.length > 0) {
+            collector.append(GROUP_BY);
 
-            int len = arelNodeSelectCore.groups.length - 1;
+            int len = selectCore.groups.length - 1;
 
-            for (int i = 0; i < arelNodeSelectCore.groups.length; i++) {
-                arelCollector = visit(arelNodeSelectCore.groups[i], arelCollector);
+            for (int i = 0; i < selectCore.groups.length; i++) {
+                collector = visit(selectCore.groups[i], collector);
                 if (len != i) {
-                    arelCollector.append(COMMA);
+                    collector.append(COMMA);
                 }
             }
         }
 
-        if (arelNodeSelectCore.havings != null && arelNodeSelectCore.havings.length > 0) {
-            arelCollector.append(" HAVING ");
-            injectJoin(arelNodeSelectCore.havings, arelCollector, AND);
+        if (selectCore.havings != null && selectCore.havings.length > 0) {
+            collector.append(" HAVING ");
+            injectJoin(selectCore.havings, collector, AND);
         }
 
-        if (arelNodeSelectCore.windows != null && arelNodeSelectCore.windows.length > 0) {
-            arelCollector.append(WINDOW);
+        if (selectCore.windows != null && selectCore.windows.length > 0) {
+            collector.append(WINDOW);
 
-            int len = arelNodeSelectCore.windows.length - 1;
+            int len = selectCore.windows.length - 1;
 
-            for (int i = 0; i < arelNodeSelectCore.windows.length; i++) {
-                arelCollector = visit(arelNodeSelectCore.windows[i], arelCollector);
+            for (int i = 0; i < selectCore.windows.length; i++) {
+                collector = visit(selectCore.windows[i], collector);
                 if (len != i) {
-                    arelCollector.append(COMMA);
+                    collector.append(COMMA);
                 }
             }
         }
 
-        return arelCollector;
+        return collector;
     }
 
-    public ArelCollector visitArelNodeSelectOptions(Object object, ArelCollector arelCollector) {
-        ArelNodeSelectStatement arelNodeSelectStatement = (ArelNodeSelectStatement) object;
+    public ArelCollector visitArelNodeSelectOptions(Object object, ArelCollector collector) {
+        ArelNodeSelectStatement selectStatement = (ArelNodeSelectStatement) object;
 
-        maybeVisit(arelNodeSelectStatement.limit, arelCollector);
-        maybeVisit(arelNodeSelectStatement.offset, arelCollector);
-        maybeVisit(arelNodeSelectStatement.lock, arelCollector);
+        maybeVisit(selectStatement.limit, collector);
+        maybeVisit(selectStatement.offset, collector);
+        maybeVisit(selectStatement.lock, collector);
 
-        return arelCollector;
+        return collector;
     }
 
-    public ArelCollector visitArelNodeSqlLiteral(Object object, ArelCollector arelCollector) {
-        return literal(object, arelCollector);
+    public ArelCollector visitArelNodeSqlLiteral(Object object, ArelCollector collector) {
+        return literal(object, collector);
     }
 
-    public ArelCollector visitArelTable(Object object, ArelCollector arelCollector) {
-        ArelTable arelTable = (ArelTable) object;
+    public ArelCollector visitArelTable(Object object, ArelCollector collector) {
+        ArelTable table = (ArelTable) object;
 
-        if ((arelTable.tableAlias != null) && (arelTable.tableAlias.length() > 0)) {
-            arelCollector.append(String.format("%s %s", quoteTableName(arelTable.tableName), quoteTableName(arelTable.tableAlias)));
+        if ((table.tableAlias != null) && (table.tableAlias.length() > 0)) {
+            collector.append(String.format("%s %s", quoteTableName(table.tableName), quoteTableName(table.tableAlias)));
         } else {
-            arelCollector.append(quoteTableName(arelTable.tableName));
+            collector.append(quoteTableName(table.tableName));
         }
-        return arelCollector;
+        return collector;
     }
 
-    public ArelCollector visitInteger(Object object, ArelCollector arelCollector) {
-        return literal(object, arelCollector);
+    public ArelCollector visitInteger(Object object, ArelCollector collector) {
+        return literal(object, collector);
     }
 
-    private ArelCollector literal(Object object, ArelCollector arelCollector) {
-        arelCollector.append(String.valueOf(object));
-        return arelCollector;
+    private ArelCollector literal(Object object, ArelCollector collector) {
+        collector.append(String.valueOf(object));
+        return collector;
     }
 
-    private ArelCollector maybeVisit(Object thing, ArelCollector arelCollector) {
+    private ArelCollector maybeVisit(Object thing, ArelCollector collector) {
         if (thing == null) {
-            return arelCollector;
+            return collector;
         }
 
-        arelCollector.append(SPACE);
-        visit(thing, arelCollector);
+        collector.append(SPACE);
+        visit(thing, collector);
 
-        return arelCollector;
+        return collector;
     }
 
     private String quoteColumnName(Object columnName) {

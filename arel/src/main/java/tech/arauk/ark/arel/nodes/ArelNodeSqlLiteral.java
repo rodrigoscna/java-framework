@@ -13,6 +13,6 @@ public class ArelNodeSqlLiteral {
 
     @Override
     public String toString() {
-        return mValue;
+        return this.mValue;
     }
 }
