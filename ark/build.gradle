@@ -9,7 +9,6 @@ dependencies {
     compile project(":activerecord")
     compile project(":activerecord_rest_adapter")
     compile project(":activesupport")
-    compile project(":arel")
 
     testCompile group: "junit", name: "junit", version: "4.12"
 }

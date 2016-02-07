@@ -1,7 +1,6 @@
 ## Welcome to Ark
 
 [![Build Status](https://api.travis-ci.org/arauk/ark.png)](https://travis-ci.org/arauk/ark)
-[![Coverage Status](https://coveralls.io/repos/arauk/ark/badge.svg?branch=master&service=github)](https://coveralls.io/github/arauk/ark?branch=master)
 
 Ark is a modern framework that includes everything needed to create
 database-backed Java applications according to the
