@@ -1,10 +1,10 @@
 language: java
 jdk:
-  - oraclejdk8
-  - oraclejdk7
-  - openjdk7
+- oraclejdk8
+- oraclejdk7
+- openjdk7
 before_install:
-  - chmod +x gradlew
+- chmod +x gradlew
 notifications:
   slack:
-    secure: kdFZKjgQeSmp/IzQzRhdZ1sev1DwPr569RlIih37VKrBReJIb6MGB6RoGfCaQZ7vKlHLnBbYQnzFgLmLdEj5VYpuafhfniuyqDaOFx8o8SGMKwY+H07ltj7bXiBxHnTB7Ys70n+gvhqZGT7qVPOITEwm9TDAieri1Jns3bd3Udo=
+    secure: QSwQ1cnKQ9GKIPkvtluOUjoyn9dScaWoWGLb8erTtlL2CyS96xl9F/JYY7YYSc30tPevYION7+oZm0IxxRcRKnwe0t5jPGCpA+PnEIPglz2NlufmRdnswf2bxgQ0sFKlWCQQ9YXeJnlsh4PcDWFV1I+qSHerRnHDE0f5aRfOigk=
